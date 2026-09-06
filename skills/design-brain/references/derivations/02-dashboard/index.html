@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ledger: what you are owed</title>
+<meta name="description" content="Illustrative owner's dashboard for a fictional invoicing product, built as a Design Brain worked example.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- One family. A working screen has no use for a display voice; the hero
+     figure is the same sans as everything else (#339, dataviz marks spec). -->
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --surface: #f5f6f8;      /* page ground */
+  --card: #ffffff;         /* chart and table surface; the validator's surface */
+  --ink: #171a1f;          /* 16:1 on card */
+  --ink-2: #4d5560;        /* 7.3:1, secondary text */
+  --ink-3: #6b737e;        /* 4.9:1, axis ticks and captions, still above 4.5 (#690) */
+  --rule: #d7dbe0;         /* hairline grid and borders, recessive */
+  --series: #2a78d6;       /* slot 1 of the dataviz reference palette, validated as a MARK colour (4.4:1 on the card) */
+  --action: #1c5cab;       /* the same hue at step 550 for text and buttons: 6.6:1 with white, 6.6:1 on white (#690) */
+  --series-wash: #2a78d614;
+  --serious: #a4210f;      /* overdue only, with an icon and a word (#318, #623) */
+  --good: #1f6b3a;         /* a delta in the right direction, 6.2:1 on card */
+  --focus: #171a1f;
+
+  --text: "Atkinson Hyperlegible", "Segoe UI", Arial, sans-serif;
+  /* Scale: base 16, ratio 1.25 (#345). Root 100%: 16, 20, 25, 31, 48 (hero). */
+  --t-0: 1rem; --t-1: 1.25rem; --t-2: 1.5625rem; --t-hero: 3rem;
+  --t-s: 0.9375rem;        /* 15: axis ticks, tile labels, table meta; never body copy */
+  /* Spacing 4, 8, 12, 16, 24, 32, 48 (#413, #765) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px;
+  --radius: 4px;
+}
+* { box-sizing: border-box; }
+html { background: var(--surface); color: var(--ink); font-size: 100%; font-family: var(--text); line-height: 1.5; }
+body { margin: 0; }
+h1, h2 { margin: 0; font-weight: 700; }
+h1 { font-size: var(--t-1); }
+h2 { font-size: var(--t-0); }
+p { margin: 0; }
+a { color: var(--action); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+button { font: inherit; }
+
+.wrap { width: min(100% - 2 * var(--s-5), 1120px); margin-inline: auto; }
+
+/* ---- Header and the one filter row above everything it scopes ---- */
+header { background: var(--card); border-bottom: 1px solid var(--rule); }
+header .wrap { display: flex; align-items: center; gap: var(--s-5); min-height: 64px; flex-wrap: wrap; padding-block: var(--s-3); }
+.product { font-weight: 700; font-size: var(--t-1); }
+.filters { display: flex; gap: var(--s-2); margin-left: auto; }
+.filters button { min-height: 44px; padding: 0 var(--s-4); border: 1px solid var(--rule); background: var(--card); color: var(--ink); border-radius: var(--radius); cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--card); border-color: var(--ink); }
+
+main { padding: var(--s-6) 0 var(--s-7); }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--s-4); }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius); padding: var(--s-5); min-width: 0; }
+
+/* ---- Question 1: hero figure, exactly one, 48px, same sans, proportional figures ---- */
+.hero { grid-column: span 5; }
+.hero .label, .tile .label { color: var(--ink-2); font-size: var(--t-s); font-weight: 700; }
+.hero .value { font-size: var(--t-hero); line-height: 1.1; font-weight: 700; letter-spacing: -0.01em; margin-top: var(--s-2); }
+.hero .sub { margin-top: var(--s-3); display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
+.status { display: inline-flex; align-items: center; gap: var(--s-1); font-weight: 700; }
+.status.serious { color: var(--serious); }
+.status svg { width: 18px; height: 18px; flex: none; }
+.hero .action { margin-top: var(--s-4); }
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s-4); background: var(--action); color: #fff; border: 0; border-radius: var(--radius); font-weight: 700; text-decoration: none; cursor: pointer; }
+.btn:hover { background: #184f95; }
+
+/* ---- Stat tiles: label, value, delta with direction and a named period ---- */
+.tiles { grid-column: span 7; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-4); }
+.tile .value { font-size: var(--t-2); font-weight: 700; margin-top: var(--s-2); line-height: 1.2; }
+.tile .delta { margin-top: var(--s-2); font-size: var(--t-s); color: var(--ink-2); display: flex; align-items: center; gap: var(--s-1); }
+.tile .delta.good { color: var(--good); font-weight: 700; }
+.tile .delta svg { width: 14px; height: 14px; }
+
+/* ---- Question 2: one line chart, single series, direct label at the end ---- */
+.chart { grid-column: span 12; }
+.chart h2 { max-width: 60ch; }
+.chart .caption { color: var(--ink-3); font-size: 1rem; margin-top: var(--s-1); max-width: 70ch; }
+.chart svg { display: block; width: 100%; height: auto; margin-top: var(--s-4); }
+.chart .grid-line { stroke: var(--rule); stroke-width: 1; }
+.chart .tick { fill: var(--ink-3); font-size: 13px; }
+.chart .line { fill: none; stroke: var(--series); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.chart .wash { fill: var(--series-wash); }
+.chart .pt { fill: var(--series); stroke: var(--card); stroke-width: 2; }
+.chart .pt:hover, .chart .pt:focus { r: 6; outline: none; }
+.chart .end-label { fill: var(--ink); font-size: 14px; font-weight: 700; }
+.chart .hit { fill: transparent; }
+.chart .pt-hit:focus-visible .pt, .chart .pt-hit:hover .pt { r: 6; }
+details { margin-top: var(--s-4); }
+summary { cursor: pointer; color: var(--action); font-weight: 700; min-height: 44px; display: flex; align-items: center; }
+
+/* ---- Question 3: the table, numbers right-aligned in tabular figures (#526, #361) ---- */
+.table { grid-column: span 12; }
+table { width: 100%; border-collapse: collapse; margin-top: var(--s-4); }
+th, td { text-align: left; padding: var(--s-3) var(--s-2); border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: var(--t-s); color: var(--ink-2); font-weight: 700; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:last-child td { border-bottom: 0; }
+.row-action { min-height: 44px; display: inline-flex; align-items: center; padding: 0 var(--s-3); border: 1px solid var(--rule); border-radius: var(--radius); background: var(--card); color: var(--ink); text-decoration: none; }
+.table-wrap { overflow-x: auto; }   /* the table scrolls inside its card on a phone; the page never does (#1052) */
+
+footer { color: var(--ink-2); font-size: var(--t-s); padding: var(--s-5) 0 var(--s-6); border-top: 1px solid var(--rule); }
+footer p { max-width: 56ch; font-size: 1rem; }
+
+@media (max-width: 900px) {
+  .hero, .tiles { grid-column: span 12; }
+  .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .wrap { width: calc(100% - 2 * var(--s-4)); }
+  .card { padding: var(--s-4); } /* the chart keeps enough width for its 24px hit areas */
+  .tiles { grid-template-columns: minmax(0, 1fr); }
+  .filters { margin-left: 0; width: 100%; }
+  .filters button { flex: 1; }
+  .hero .value { font-size: 2.25rem; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span class="product">Ledger</span>
+    <h1>What you are owed</h1>
+    <div class="filters" role="group" aria-label="Period">
+      <button type="button" aria-pressed="false">This month</button>
+      <button type="button" aria-pressed="false">Last quarter</button>
+      <button type="button" aria-pressed="true">Last 12 months</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <!-- Q1: the one number, and the part of it that needs action (#528 overview first; #94 focal point) -->
+    <section class="card hero" aria-labelledby="owed">
+      <p class="label" id="owed">Outstanding across 23 invoices</p>
+      <p class="value">£18,420</p>
+      <p class="sub"><span class="status serious"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/><path d="M10 5v6M10 13.5v1.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>£4,310 overdue</span><span>on 4 invoices</span></p>
+      <p class="action"><a class="btn" href="#overdue">Send 4 reminders</a></p>
+    </section>
+
+    <div class="tiles">
+      <section class="card tile" aria-labelledby="t1">
+        <p class="label" id="t1">Paid this month</p>
+        <p class="value">£12,880</p>
+        <p class="delta">17 invoices</p>
+      </section>
+      <section class="card tile" aria-labelledby="t2">
+        <p class="label" id="t2">Average days to pay</p>
+        <p class="value">27</p>
+        <p class="delta good"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 2v10M3 8l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>14 days faster than a year ago</p>
+      </section>
+      <section class="card tile" aria-labelledby="t3">
+        <p class="label" id="t3">Invoices sent, last 12 months</p>
+        <p class="value">214</p>
+        <p class="delta">£161,300 in total</p>
+      </section>
+    </div>
+
+    <!-- Q2: one series, one axis, the takeaway in the title (#534, #514, #507, #516) -->
+    <section class="card chart" aria-labelledby="chart-title">
+      <h2 id="chart-title">Invoices are being paid 14 days faster than a year ago</h2>
+      <p class="caption">Average days from invoice to payment, each month, September to August. Illustrative data.</p>
+      <svg viewBox="0 0 680 240" role="img" aria-labelledby="chart-title chart-desc">
+        <desc id="chart-desc">A line falling from 41 days in September to 27 days in August, with a low of 27 and a high of 41.</desc>
+        <!-- hairline grid at 0, 10, 20, 30, 40, 50; plot from y=20 (50 days) to y=190 (0 days), 3.4px per day -->
+        <g class="grid-line"><line x1="48" x2="660" y1="190" y2="190"/><line x1="48" x2="660" y1="156" y2="156"/><line x1="48" x2="660" y1="122" y2="122"/><line x1="48" x2="660" y1="88" y2="88"/><line x1="48" x2="660" y1="54" y2="54"/><line x1="48" x2="660" y1="20" y2="20"/></g>
+        <g class="tick"><text x="40" y="194" text-anchor="end">0</text><text x="40" y="160" text-anchor="end">10</text><text x="40" y="126" text-anchor="end">20</text><text x="40" y="92" text-anchor="end">30</text><text x="40" y="58" text-anchor="end">40</text><text x="40" y="24" text-anchor="end">50</text></g>
+        <!-- x: 12 months from 70 to 610, 49.09px apart -->
+        <g class="tick"><text x="70" y="216" text-anchor="middle">Sep</text><text x="119" y="216" text-anchor="middle">Oct</text><text x="168" y="216" text-anchor="middle">Nov</text><text x="217" y="216" text-anchor="middle">Dec</text><text x="266" y="216" text-anchor="middle">Jan</text><text x="315" y="216" text-anchor="middle">Feb</text><text x="365" y="216" text-anchor="middle">Mar</text><text x="414" y="216" text-anchor="middle">Apr</text><text x="463" y="216" text-anchor="middle">May</text><text x="512" y="216" text-anchor="middle">Jun</text><text x="561" y="216" text-anchor="middle">Jul</text><text x="610" y="216" text-anchor="middle">Aug</text></g>
+        <!-- wash at ~10% under the line, then the 2px line -->
+        <path class="wash" d="M70 50.6 L119 57.4 L168 54 L217 64.2 L266 67.6 L315 60.8 L365 74.4 L414 77.8 L463 84.6 L512 81.2 L561 91.4 L610 98.2 L610 190 L70 190 Z"/>
+        <path class="line" d="M70 50.6 L119 57.4 L168 54 L217 64.2 L266 67.6 L315 60.8 L365 74.4 L414 77.8 L463 84.6 L512 81.2 L561 91.4 L610 98.2"/>
+        <!-- markers >= 8px with a 2px surface ring inside a 50-unit hit area, which is 24px even at 390px wide; each carries its value as a native tooltip and is keyboard reachable -->
+        <g>
+          <g class="pt-hit" tabindex="0"><title>September: 41 days</title><circle class="hit" cx="70" cy="50.6" r="25"/><circle class="pt" cx="70" cy="50.6" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>October: 39 days</title><circle class="hit" cx="119" cy="57.4" r="25"/><circle class="pt" cx="119" cy="57.4" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>November: 40 days</title><circle class="hit" cx="168" cy="54" r="25"/><circle class="pt" cx="168" cy="54" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>December: 37 days</title><circle class="hit" cx="217" cy="64.2" r="25"/><circle class="pt" cx="217" cy="64.2" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>January: 36 days</title><circle class="hit" cx="266" cy="67.6" r="25"/><circle class="pt" cx="266" cy="67.6" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>February: 38 days</title><circle class="hit" cx="315" cy="60.8" r="25"/><circle class="pt" cx="315" cy="60.8" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>March: 34 days</title><circle class="hit" cx="365" cy="74.4" r="25"/><circle class="pt" cx="365" cy="74.4" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>April: 33 days</title><circle class="hit" cx="414" cy="77.8" r="25"/><circle class="pt" cx="414" cy="77.8" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>May: 31 days</title><circle class="hit" cx="463" cy="84.6" r="25"/><circle class="pt" cx="463" cy="84.6" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>June: 32 days</title><circle class="hit" cx="512" cy="81.2" r="25"/><circle class="pt" cx="512" cy="81.2" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>July: 29 days</title><circle class="hit" cx="561" cy="91.4" r="25"/><circle class="pt" cx="561" cy="91.4" r="4"/></g>
+          <g class="pt-hit" tabindex="0"><title>August: 27 days</title><circle class="hit" cx="610" cy="98.2" r="25"/><circle class="pt" cx="610" cy="98.2" r="5"/></g>
+        </g>
+        <!-- two direct labels only: the start and the end (#507) -->
+        <text class="end-label" x="70" y="40" text-anchor="middle">41</text>
+        <text class="end-label" x="624" y="102">27 days</text>
+      </svg>
+      <details>
+        <summary>Show the figures as a table</summary>
+        <table>
+          <thead><tr><th>Month</th><th class="num">Average days to pay</th></tr></thead>
+          <tbody>
+            <tr><td>September</td><td class="num">41</td></tr><tr><td>October</td><td class="num">39</td></tr><tr><td>November</td><td class="num">40</td></tr><tr><td>December</td><td class="num">37</td></tr><tr><td>January</td><td class="num">36</td></tr><tr><td>February</td><td class="num">38</td></tr><tr><td>March</td><td class="num">34</td></tr><tr><td>April</td><td class="num">33</td></tr><tr><td>May</td><td class="num">31</td></tr><tr><td>June</td><td class="num">32</td></tr><tr><td>July</td><td class="num">29</td></tr><tr><td>August</td><td class="num">27</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </section>
+
+    <!-- Q3: the four overdue invoices, and the action on each row (#526, #610) -->
+    <section class="card table" id="overdue" aria-labelledby="overdue-h">
+      <h2 id="overdue-h">Overdue: 4 invoices, £4,310</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Customer</th><th>Invoice</th><th class="num">Amount</th><th class="num">Days overdue</th><th>Reminder</th></tr></thead>
+          <tbody>
+            <tr><td>Marlow &amp; Finch</td><td>INV-0412</td><td class="num">£1,840.00</td><td class="num">21</td><td><a class="row-action" href="#">Send reminder</a></td></tr>
+            <tr><td>Castle Street Dental</td><td>INV-0419</td><td class="num">£960.00</td><td class="num">14</td><td><a class="row-action" href="#">Send reminder</a></td></tr>
+            <tr><td>Oakhill Nursery</td><td>INV-0423</td><td class="num">£1,120.00</td><td class="num">9</td><td><a class="row-action" href="#">Send reminder</a></td></tr>
+            <tr><td>R. Patel</td><td>INV-0427</td><td class="num">£390.00</td><td class="num">3</td><td><a class="row-action" href="#">Send reminder</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Ledger is a fictional product and every figure on this page is illustrative. Built as a worked example for GoodLad's Design Brain; no claim is made about any real business or data.</p>
+  </div>
+</footer>
+</body>
+</html>

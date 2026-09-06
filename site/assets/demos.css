@@ -1,0 +1,347 @@
+/* ==========================================================================
+   Design Brain — demo kit
+   A small, fixed vocabulary for the live visual example attached to each entry.
+   Every demo is built from these classes so 1,119 of them read as one system.
+   Nothing here loads an image: demos are markup, so they stay sharp, follow the
+   theme, weigh nothing and work offline.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Shell
+   -------------------------------------------------------------------------- */
+
+.db-demo { margin: 0; }
+
+/* Visuals want more room than the reading measure allows. */
+.field--demo .field__body { max-width: 660px; }
+
+.db-stage {
+  position: relative;
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: var(--s-5);
+  overflow: hidden;
+}
+.db-stage--tight { padding: var(--s-3); }
+.db-stage--flush { padding: 0; }
+.db-stage--dark { background: var(--paper-sunk); }
+
+.db-cap {
+  margin-top: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+.db-cap b { color: var(--ink-2); font-weight: 500; }
+
+/* Two-up comparison: the workhorse of teaching a fundamental. ---------------- */
+
+.db-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+}
+@media (max-width: 620px) { .db-pair { grid-template-columns: 1fr; } }
+
+/* The half is a flex column so the stage fills the space left under the tag.
+   Using height:100% here made the stage overflow by the tag's height and paint
+   over the caption below. */
+.db-half { min-width: 0; display: flex; flex-direction: column; }
+.db-half > .db-stage { flex: 1 1 auto; }
+
+.db-tag {
+  display: block;
+  margin-bottom: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.db-tag--bad  { color: var(--sig-disputed); }
+.db-tag--good { color: var(--sig-core); }
+
+/* --------------------------------------------------------------------------
+   Layout helpers
+   -------------------------------------------------------------------------- */
+
+.db-row { display: flex; align-items: center; gap: var(--s-3); flex-wrap: wrap; }
+.db-row--tight { gap: 4px; }
+.db-row--loose { gap: var(--s-6); }
+.db-row--top { align-items: flex-start; }
+.db-row--between { justify-content: space-between; }
+.db-row--centre { justify-content: center; }
+.db-row--nowrap { flex-wrap: nowrap; }
+.db-row--baseline { align-items: baseline; }
+.db-row--bottom { align-items: flex-end; }
+
+.db-col { display: flex; flex-direction: column; gap: var(--s-3); }
+.db-col--tight { gap: 4px; }
+
+.db-stack { display: grid; }
+.db-stack > * { grid-area: 1 / 1; }
+
+.db-centre { display: grid; place-items: center; min-height: 120px; }
+.db-fill { width: 100%; }
+
+/* --------------------------------------------------------------------------
+   Marks: the neutral shapes most perception demos are built from
+   -------------------------------------------------------------------------- */
+
+.db-dot, .db-sq, .db-tri {
+  --mark: var(--ink);
+  flex: 0 0 auto;
+  background: var(--mark);
+}
+.db-dot { width: 14px; height: 14px; border-radius: 50%; }
+.db-sq  { width: 14px; height: 14px; }
+.db-tri {
+  width: 0; height: 0; background: none;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 14px solid var(--mark);
+}
+
+.db-dot--lg, .db-sq--lg { width: 26px; height: 26px; }
+.db-dot--sm, .db-sq--sm { width: 8px; height: 8px; }
+.db-dot--open { background: none; border: 1.5px solid var(--mark); }
+.db-dot--accent, .db-sq--accent { --mark: var(--accent); }
+.db-dot--mute, .db-sq--mute { --mark: var(--ink-4); }
+
+.db-bar {
+  height: 10px;
+  background: var(--ink-4);
+  border-radius: 1px;
+}
+.db-bar--ink { background: var(--ink); }
+.db-bar--accent { background: var(--accent); }
+.db-bar--tall { height: 22px; }
+.db-bar--thin { height: 5px; }
+
+.db-block {
+  background: var(--ink-4);
+  border-radius: 2px;
+  min-height: 34px;
+}
+.db-block--ink { background: var(--ink); }
+.db-block--accent { background: var(--accent); }
+.db-block--outline { background: none; border: 1px solid var(--rule-strong); }
+
+/* Text-as-texture: grey bars that stand in for body copy. */
+.db-lines { display: flex; flex-direction: column; gap: 6px; }
+.db-lines > i {
+  display: block;
+  height: 6px;
+  background: var(--ink-4);
+  border-radius: 1px;
+  opacity: 0.55;
+}
+.db-lines > i:last-child { width: 62%; }
+
+/* --------------------------------------------------------------------------
+   Type specimens
+   -------------------------------------------------------------------------- */
+
+.db-type { font-family: var(--font-text); color: var(--ink); }
+.db-type--display { font-family: var(--font-display); }
+.db-type--mono { font-family: var(--font-mono); }
+.db-type p { margin: 0 0 var(--s-2); }
+.db-type p:last-child { margin-bottom: 0; }
+
+.db-measure-narrow { max-width: 22em; }
+.db-measure-good   { max-width: 33em; }
+.db-measure-wide   { max-width: 100%; }
+
+.db-specimen {
+  font-family: var(--font-display);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+/* Baseline and column overlays, drawn with gradients so no assets are needed. */
+.db-baseline {
+  background-image: repeating-linear-gradient(
+    to bottom, var(--accent-soft) 0 1px, transparent 1px 24px);
+}
+/* Column guides sit behind the content and must stay quiet enough to read
+   through. Set --db-cols for a different count. */
+.db-cols {
+  --db-cols: 6;
+  --db-gutter: 16px;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--accent-soft) 0 calc((100% - (var(--db-cols) - 1) * var(--db-gutter)) / var(--db-cols)),
+    transparent 0 calc((100% - (var(--db-cols) - 1) * var(--db-gutter)) / var(--db-cols) + var(--db-gutter)));
+}
+
+/* --------------------------------------------------------------------------
+   Colour
+   -------------------------------------------------------------------------- */
+
+.db-swatch {
+  width: 46px; height: 46px;
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  flex: 0 0 auto;
+}
+.db-swatch--lg { width: 72px; height: 72px; }
+.db-swatch--round { border-radius: 50%; }
+
+.db-ramp { display: flex; width: 100%; height: 34px; border-radius: 2px; overflow: hidden; border: 1px solid var(--rule); }
+.db-ramp > span { flex: 1 1 0; }
+
+.db-chip-text {
+  display: grid;
+  place-items: center;
+  padding: var(--s-3);
+  border-radius: 2px;
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   Miniature interface parts
+   -------------------------------------------------------------------------- */
+
+.db-ui {
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  padding: var(--s-3);
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.db-btn {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--ink);
+  white-space: nowrap;
+}
+.db-btn--ghost { background: none; color: var(--ink-2); border-color: var(--rule-strong); }
+.db-btn--quiet { background: none; color: var(--ink-3); border-color: transparent; }
+.db-btn--danger { background: var(--sig-cut); border-color: var(--sig-cut); color: #fff; }
+.db-btn--sm { padding: 3px 8px; font-size: 10px; }
+.db-btn--lg { padding: 12px 22px; font-size: 13px; }
+
+.db-input {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  background: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.db-input--error { border-color: var(--sig-disputed); }
+
+.db-label {
+  display: block;
+  margin-bottom: 3px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.db-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: var(--s-3);
+}
+
+.db-nav {
+  display: flex;
+  gap: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: var(--s-2);
+}
+.db-nav b { color: var(--ink); font-weight: 500; }
+
+/* --------------------------------------------------------------------------
+   Annotation
+   -------------------------------------------------------------------------- */
+
+.db-note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+.db-note--accent { color: var(--accent); }
+
+.db-arrow { color: var(--ink-4); font-size: 14px; line-height: 1; }
+
+.db-measure-mark {
+  position: relative;
+  border-top: 1px solid var(--accent-line);
+  padding-top: 3px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.db-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.db-svg .s { stroke: var(--ink); fill: none; stroke-width: 1.5; }
+.db-svg .s-mute { stroke: var(--ink-4); fill: none; stroke-width: 1; }
+.db-svg .s-accent { stroke: var(--accent); fill: none; stroke-width: 1.5; }
+.db-svg .f { fill: var(--ink); stroke: none; }
+.db-svg .f-mute { fill: var(--ink-4); stroke: none; }
+.db-svg .f-accent { fill: var(--accent); stroke: none; }
+.db-svg .t {
+  fill: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  stroke: none;
+}
+
+/* --------------------------------------------------------------------------
+   Motion. Every animation stops for prefers-reduced-motion, which the global
+   stylesheet already enforces, and each one loops so it can be watched twice.
+   -------------------------------------------------------------------------- */
+
+.db-anim { animation-duration: 2.4s; animation-iteration-count: infinite; }
+.db-anim--slide  { animation-name: dbSlide; }
+.db-anim--fade   { animation-name: dbFade; }
+.db-anim--pulse  { animation-name: dbPulse; }
+.db-anim--linear { animation-timing-function: linear; }
+.db-anim--ease   { animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+.db-anim--in     { animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+.db-anim--jump   { animation-timing-function: steps(4, end); }
+
+@keyframes dbSlide { 0%, 12% { transform: translateX(0); } 50%, 62% { transform: translateX(120px); } 100% { transform: translateX(0); } }
+@keyframes dbFade  { 0%, 12% { opacity: 0.15; } 50%, 62% { opacity: 1; } 100% { opacity: 0.15; } }
+@keyframes dbPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+
+/* --------------------------------------------------------------------------
+   Print: demos stay, animation does not
+   -------------------------------------------------------------------------- */
+
+@media print {
+  .db-anim { animation: none !important; }
+  .db-stage { border-color: #ccc; background: #fff; }
+}
+
+/* Entries judged not to need a visual. */
+.no-visual { font-size: 0.9375rem; color: var(--ink-3); margin: 0; font-style: italic; }

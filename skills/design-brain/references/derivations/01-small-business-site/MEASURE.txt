@@ -1,0 +1,29 @@
+Design Brain measure: file:///Users/goodlad/Documents/GitHub/design-brain-v2/skills/design-brain/references/derivations/01-small-business-site/index.html
+
+== 1280x800 ==
+PASS  No horizontal overflow
+PASS  Contrast: all 49 text elements meet 4.5:1 (3:1 large)
+PASS  Measure: 5 multi-line blocks within 40-80 characters per line (50, 66, 52, 77, 77)
+PASS  Body line-height at or above 1.3
+PASS  Body text at or above 16px
+PASS  Type: 5 distinct sizes (16, 18, 22, 28, 55), 2 families (Young Serif, IBM Plex Sans), weights 400/600/700
+PASS  Spacing: 100% of 139 margin/padding/gap values sit on a 4px scale (11 distinct values)
+PASS  Targets: all 11 block-level targets at least 24x24px
+PASS  Colour: 1 saturated hue family across 7 distinct colours (30deg: #8a4b1e)
+PASS  Headings: one h1 ("Fitted kitchens and built-in storage, made in ou"), 7 headings, no level skips
+PASS  Forms: all 4 fields labelled
+
+== 390x844 ==
+PASS  No horizontal overflow
+PASS  Contrast: all 46 text elements meet 4.5:1 (3:1 large)
+PASS  Measure: 5 multi-line blocks within 40-80 characters per line (32, 32, 40, 40, 44)
+PASS  Body line-height at or above 1.3
+PASS  Body text at or above 16px
+PASS  Type: 5 distinct sizes (16, 18, 22, 28, 44), 2 families (Young Serif, IBM Plex Sans), weights 400/600/700
+PASS  Spacing: 100% of 130 margin/padding/gap values sit on a 4px scale (8 distinct values)
+PASS  Targets: all 8 block-level targets at least 24x24px
+PASS  Colour: 1 saturated hue family across 7 distinct colours (30deg: #8a4b1e)
+PASS  Headings: one h1 ("Fitted kitchens and built-in storage, made in ou"), 7 headings, no level skips
+PASS  Forms: all 4 fields labelled
+
+RESULT: PASS on measurable checks. WARN and CHECK lines still need a human eye.

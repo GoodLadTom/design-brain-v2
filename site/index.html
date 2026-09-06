@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GoodLad’s Design Brain v2</title>
+<meta name="description" content="Every design fundamental, explained in plain English and checked against a named source.">
+<meta name="color-scheme" content="light dark">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Three families, three jobs: Bodoni Moda displays (and demonstrates optical
+     sizing), Newsreader carries the reading text, IBM Plex Mono labels. -->
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/demos.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2317150f'/><text y='72' x='50' text-anchor='middle' font-size='64' fill='%23f7f4ed' font-family='Georgia,serif'>D</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#view">Skip to content</a>
+
+<header class="topbar">
+  <button class="icon-btn nav-toggle" id="nav-btn" aria-label="Show sections">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <a class="brand" href="#/">
+    <span class="brand__mark"><span class="brand__owner">GoodLad’s </span>Design Brain <span class="brand__v">v2</span></span>
+    <span class="brand__meta" id="progress">loading</span>
+  </a>
+
+  <div class="topbar__search">
+    <label class="visually-hidden" for="search">Search every fundamental</label>
+    <input class="search-input" id="search" type="search" placeholder="Search every fundamental" autocomplete="off" spellcheck="false">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6" stroke-linecap="round"/>
+    </svg>
+    <span class="search-kbd">/</span>
+  </div>
+
+  <div class="topbar__actions">
+    <a class="icon-btn" href="#/audit" aria-label="Audit trail" title="Audit trail">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M9 11l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="4" y="4" width="16" height="16" rx="2"/>
+      </svg>
+    </a>
+    <button class="icon-btn" id="theme-btn" aria-label="Switch theme" title="Switch theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<div class="layout">
+  <nav class="rail" id="rail" aria-label="Sections">
+    <div class="rail__group">
+      <div class="rail__heading">Sections</div>
+      <ul id="rail-list"></ul>
+    </div>
+    <div class="rail__group">
+      <div class="rail__heading">Views</div>
+      <ul>
+        <li><a class="rail__link" href="#/"><span class="rail__num">&mdash;</span><span class="rail__title">Index</span></a></li>
+        <li><a class="rail__link" href="#/audit"><span class="rail__num">&mdash;</span><span class="rail__title">Audit trail</span></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="main" id="view" tabindex="-1"></main>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

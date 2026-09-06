@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thanet Shoreline Trust: accessibility report, opening slides</title>
+<meta name="description" content="Three 16:9 slides built as a Design Brain worked example: the finding, the scale, the ranked fixes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- A superfamily pair (#338, #339): Source Serif 4 for titles, Source Sans 3 for
+     everything else. They agree clearly because they were drawn to. -->
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f7f6f2;         /* the slide ground; projectors wash mid-tones, so ink is near-black */
+  --ink: #15171a;           /* 16.6:1 */
+  --ink-2: #45494f;         /* 8.2:1: source lines and slide numbers, sized for the back row anyway */
+  --rule: #cfd0cb;
+  --accent: #2a78d6;        /* one hue, slot 1 of the dataviz reference palette, for the lead bar (a mark) */
+  --accent-text: #1c5cab;   /* the same hue at text strength for the rank numerals: 6.6:1 (#690) */
+  --neutral: #b9bcc2;       /* the other bars */
+  --serious: #a4210f;       /* the one alarming figure on slide one, with the word next to it */
+  --display: "Source Serif 4", Georgia, serif;
+  --text: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --page: #e3e4e0;
+}
+* { box-sizing: border-box; }
+html { background: var(--page); color: var(--ink); font-family: var(--text); font-size: 100%; line-height: 1.4; }
+body { margin: 0; padding: 32px 24px 48px; }
+.deck { display: grid; gap: 32px; max-width: 1280px; margin: 0 auto; }
+.frame-note { max-width: 1280px; margin: 0 auto 24px; color: var(--ink-2); font-size: 1rem; font-weight: 400; }
+.frame-note span { display: block; max-width: 70ch; }
+
+/* ---- The frame. Type in cqw so the slide scales as one object: at 1280px wide,
+        1cqw = 12.8px. Title 5cqw = 64px, body 2.5cqw = 32px, small 1.5cqw = 19px.
+        Three sizes across the deck (#344). Safe area 5% (#9147). ---- */
+.slide { container-type: inline-size; aspect-ratio: 16 / 9; background: var(--paper); border: 1px solid var(--rule); position: relative; overflow: hidden; }
+.safe { position: absolute; inset: 5%; display: flex; flex-direction: column; }
+.slide h2 { font-family: var(--display); font-weight: 500; font-size: 5cqw; line-height: 1.08; margin: 0; letter-spacing: -0.01em; max-width: 20ch; font-variation-settings: "opsz" 60; }
+.slide p, .slide li { font-size: 2.5cqw; line-height: 1.35; margin: 0; }
+.slide .small { font-size: 1.5cqw; color: var(--ink-2); }
+.slide .num { position: absolute; right: 5%; bottom: 5%; font-size: 1.5cqw; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.slide .kicker { font-size: 1.5cqw; font-weight: 700; letter-spacing: 0.04em; color: var(--ink-2); margin-bottom: 2cqw; }
+
+/* Slide 1: the finding. One figure is alarming and says so in words (#318). */
+.s1 .lead { margin-top: 3cqw; max-width: 34ch; }
+.s1 .figure { margin-top: auto; display: flex; align-items: baseline; gap: 1.5cqw; }
+.s1 .figure strong { font-size: 7.5cqw; line-height: 1; font-weight: 700; color: var(--serious); letter-spacing: -0.02em; }
+.s1 .figure span { font-size: 2.5cqw; max-width: 24ch; }
+
+/* Slide 2: the chart, same construction as the chart derivation, bigger type. */
+.s2 .chart { margin-top: 2cqw; flex: 1; min-height: 0; }
+.s2 svg { width: 100%; height: 100%; display: block; }
+.s2 .grid-line { stroke: var(--rule); stroke-width: 1; }
+.s2 .cat, .s2 .val { font-size: 24px; fill: var(--ink); }
+.s2 .val { font-weight: 700; }
+.s2 .tick { font-size: 20px; fill: var(--ink-2); }
+.s2 .bar { fill: var(--neutral); }
+.s2 .bar.lead { fill: var(--accent); }
+.s2 .baseline { stroke: var(--ink-2); stroke-width: 1; }
+
+/* Slide 3: ranked, the first fix dominant (#96, #1048). Not three equal boxes. */
+.s3 ol { list-style: none; margin: 3cqw 0 0; padding: 0; display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 2cqw; flex: 1; }
+.s3 li { display: grid; grid-template-rows: auto auto 1fr auto; gap: 1cqw; padding: 2cqw; border-top: 0.3cqw solid var(--ink); }
+.s3 li:first-child { background: #ffffff; border-top-color: var(--accent); }
+.s3 .rank { font-family: var(--display); font-size: 5cqw; line-height: 1; color: var(--accent-text); font-variation-settings: "opsz" 60; }
+.s3 li:not(:first-child) .rank { color: var(--ink-2); }
+.s3 strong { font-size: 2.5cqw; font-weight: 700; display: block; line-height: 1.2; }
+.s3 .time { font-size: 1.5cqw; color: var(--ink-2); align-self: end; }
+.s3 li:first-child p { font-size: 2.5cqw; }
+.s3 li:not(:first-child) p { font-size: 2.5cqw; }
+
+.note { max-width: 70ch; margin: 24px auto 0; color: var(--ink-2); font-size: 1rem; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<h1 class="frame-note">Thanet Shoreline Trust: opening slides <span>Three 16:9 frames. They scale with the window; everything that matters sits inside a 5 per cent safe area.</span></h1>
+
+<main class="deck">
+  <!-- SLIDE 1: the finding ------------------------------------------------- -->
+  <section class="slide s1" aria-label="Slide 1 of 3">
+    <div class="safe">
+      <p class="kicker">Thanet Shoreline Trust, website accessibility review</p>
+      <h2>Your home page fails the most common accessibility check on the web</h2>
+      <p class="lead">Low-contrast text. It is the one failure that automated scans find on more sites than any other, and it is fixable in a day.</p>
+      <p class="figure"><strong>31 of 40</strong><span>text styles on the home page fall below the 4.5:1 minimum</span></p>
+      <p class="small" style="margin-top:2cqw">Minimum from WCAG 2.2 SC 1.4.3. The 31 of 40 figure is part of this fictional example.</p>
+    </div>
+    <span class="num">1 / 3</span>
+  </section>
+
+  <!-- SLIDE 2: the scale ---------------------------------------------------- -->
+  <section class="slide s2" aria-label="Slide 2 of 3">
+    <div class="safe">
+      <h2>Low-contrast text is on 84 per cent of home pages, more than any other detected failure</h2>
+      <div class="chart">
+        <svg viewBox="0 0 1150 420" role="img" aria-label="Bar chart: low-contrast text 83.9 per cent, missing alt text 53.1, unlabelled form fields 51.0, empty buttons 30.6, no document language 13.5">
+          <defs>
+            <clipPath id="d1"><rect x="380" y="20" width="629" height="40"/></clipPath>
+            <clipPath id="d2"><rect x="380" y="92" width="398" height="40"/></clipPath>
+            <clipPath id="d3"><rect x="380" y="164" width="383" height="40"/></clipPath>
+            <clipPath id="d4"><rect x="380" y="236" width="230" height="40"/></clipPath>
+            <clipPath id="d5"><rect x="380" y="308" width="101" height="40"/></clipPath>
+          </defs>
+          <!-- plot: x 380 (0%) to 1130 (100%), 7.5px per point; bars 40px thick, 32px gap -->
+          <g class="grid-line"><line x1="567.5" x2="567.5" y1="10" y2="360"/><line x1="755" x2="755" y1="10" y2="360"/><line x1="942.5" x2="942.5" y1="10" y2="360"/><line x1="1130" x2="1130" y1="10" y2="360"/></g>
+          <g class="tick"><text x="380" y="392" text-anchor="middle">0%</text><text x="567.5" y="392" text-anchor="middle">25%</text><text x="755" y="392" text-anchor="middle">50%</text><text x="942.5" y="392" text-anchor="middle">75%</text><text x="1130" y="392" text-anchor="middle">100%</text></g>
+          <g class="cat"><text x="360" y="48" text-anchor="end">Low-contrast text</text><text x="360" y="120" text-anchor="end">Missing alt text</text><text x="360" y="192" text-anchor="end">Unlabelled form fields</text><text x="360" y="264" text-anchor="end">Empty buttons</text><text x="360" y="336" text-anchor="end">No document language</text></g>
+          <rect class="bar lead" x="374" y="20" width="635" height="40" rx="6" clip-path="url(#d1)"><title>Low-contrast text: 83.9 per cent</title></rect>
+          <rect class="bar" x="374" y="92" width="404" height="40" rx="6" clip-path="url(#d2)"><title>Missing alternative text: 53.1 per cent</title></rect>
+          <rect class="bar" x="374" y="164" width="389" height="40" rx="6" clip-path="url(#d3)"><title>Missing form input labels: 51.0 per cent</title></rect>
+          <rect class="bar" x="374" y="236" width="236" height="40" rx="6" clip-path="url(#d4)"><title>Empty buttons: 30.6 per cent</title></rect>
+          <rect class="bar" x="374" y="308" width="107" height="40" rx="6" clip-path="url(#d5)"><title>Missing document language: 13.5 per cent</title></rect>
+          <g class="val"><text x="1021" y="48">83.9%</text><text x="790" y="120">53.1%</text><text x="775" y="192">51.0%</text><text x="622" y="264">30.6%</text><text x="493" y="336">13.5%</text></g>
+          <line class="baseline" x1="380" x2="380" y1="10" y2="360"/>
+        </svg>
+      </div>
+      <p class="small">Share of one million home pages, WebAIM Million, February 2026, as cited in Design Brain #1029, #710, #707, #1031 and #712.</p>
+    </div>
+    <span class="num">2 / 3</span>
+  </section>
+
+  <!-- SLIDE 3: the fixes, ranked ------------------------------------------- -->
+  <section class="slide s3" aria-label="Slide 3 of 3">
+    <div class="safe">
+      <h2>Three fixes, in order of return</h2>
+      <ol>
+        <li>
+          <span class="rank">1</span>
+          <strong>Set the text colours as tokens that clear 4.5:1</strong>
+          <p>Fixes all 31 failing styles at once, and stops the next redesign reintroducing them.</p>
+          <span class="time">About a day</span>
+        </li>
+        <li>
+          <span class="rank">2</span>
+          <strong>Write alt text for the 62 images</strong>
+          <p>Photographs of the shoreline are content, not decoration.</p>
+          <span class="time">About two days</span>
+        </li>
+        <li>
+          <span class="rank">3</span>
+          <strong>Label every field on the donate form</strong>
+          <p>Placeholders vanish when people type. Labels do not.</p>
+          <span class="time">Half a day</span>
+        </li>
+      </ol>
+      <p class="small" style="margin-top:2cqw">Estimates are the consultant's, for this fictional client.</p>
+    </div>
+    <span class="num">3 / 3</span>
+  </section>
+</main>
+
+<p class="note">Thanet Shoreline Trust is a fictional client. The slides are a worked example from GoodLad's Design Brain; the WebAIM figures on slide two are real and cited.</p>
+</body>
+</html>

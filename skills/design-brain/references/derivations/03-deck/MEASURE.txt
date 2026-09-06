@@ -1,0 +1,38 @@
+Design Brain measure: file:///Users/goodlad/Documents/GitHub/design-brain-v2/skills/design-brain/references/derivations/03-deck/index.html
+
+== 1280x800 ==
+PASS  No horizontal overflow
+PASS  Contrast: all 43 text elements meet 4.5:1 (3:1 large)
+WARN  1 multi-line text block outside 40-80 characters per line (estimated from average glyph width)
+      #1011 45-75 characters per line, #372 Measure
+      ~38 cpl  520px at 30.8px  "Low-contrast text. It is the one failure that au"  main.deck > section.slide.s1:nth-of-type(1) > div.safe > p.lead:nth-of-type(2)
+PASS  Body line-height at or above 1.3
+PASS  Body text at or above 16px
+PASS  Type: 7 distinct sizes (16, 18.5, 20, 24, 30.8, 61.5, 92.3), 2 families (Source Sans 3, Source Serif 4), weights 400/500/700
+WARN  Spacing: 29% of 34 margin/padding/gap values sit on a 4px scale (7 distinct values)
+      #414 4-point spacing scale, #1017 8-point grid, #1026 No spacing scale
+      off-scale: 24.6px x18, 36.9px x2, 18.5px x2, 337.7px x2
+PASS  Targets: all 0 block-level targets at least 24x24px
+PASS  Colour: 2 saturated hue families across 8 distinct colours (210deg: #2a78d6 #1c5cab; 0deg: #a4210f)
+PASS  Headings: one h1 ("Thanet Shoreline Trust: opening slides Three 16:"), 4 headings, no level skips
+
+== 390x844 ==
+PASS  No horizontal overflow
+PASS  Contrast: all 43 text elements meet 4.5:1 (3:1 large)
+PASS  Measure: 2 multi-line blocks within 40-80 characters per line (38, 48)
+PASS  Body line-height at or above 1.3
+WARN  4 body text blocks below 16px
+      #1013 16px minimum body text on the web
+      8.5px  main.deck > section.slide.s1 > div.safe > p.lead
+      5.1px  main.deck > section.slide.s1 > div.safe > p.small
+      5.1px  main.deck > section.slide.s2 > div.safe > p.small
+      8.5px  main.deck > section.slide.s3 > div.safe > ol > li > p
+PASS  Type: 7 distinct sizes (5.1, 8.5, 16, 17, 20, 24, 25.5), 2 families (Source Sans 3, Source Serif 4), weights 400/500/700
+WARN  Spacing: 13% of 32 margin/padding/gap values sit on a 4px scale (6 distinct values)
+      #414 4-point spacing scale, #1017 8-point grid, #1026 No spacing scale
+      off-scale: 6.8px x18, 3.4px x6, 10.2px x2, 5.1px x2
+PASS  Targets: all 0 block-level targets at least 24x24px
+PASS  Colour: 2 saturated hue families across 8 distinct colours (210deg: #2a78d6 #1c5cab; 0deg: #a4210f)
+PASS  Headings: one h1 ("Thanet Shoreline Trust: opening slides Three 16:"), 4 headings, no level skips
+
+RESULT: PASS on measurable checks. WARN and CHECK lines still need a human eye.

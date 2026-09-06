@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Low-contrast text is the most common accessibility failure on the web</title>
+<meta name="description" content="A single report figure built from the WebAIM Million (February 2026) figures cited in Design Brain.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --card: #ffffff;
+  --surface: #f6f7f9;
+  --ink: #181b20;          /* 16:1 */
+  --ink-2: #4c535d;        /* 7.4:1 */
+  --ink-3: #6a717c;        /* 4.9:1: ticks and the source line, above 4.5 (#690) */
+  --rule: #d9dde2;
+  --series: #2a78d6;       /* the bar the finding is about: slot 1 of the dataviz reference palette, validated */
+  --neutral: #b8bec6;      /* every other bar; the pair validated with the dataviz checker */
+  --text: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --t-0: 1.0625rem;        /* 17 body */
+  --t-1: 1.375rem;         /* 22 title */
+  --t-s: 0.9375rem;        /* 15 caption and ticks */
+  --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px;
+}
+* { box-sizing: border-box; }
+html { background: var(--surface); color: var(--ink); font-family: var(--text); font-size: 100%; line-height: 1.5; }
+body { margin: 0; padding: var(--s-7) var(--s-5); }
+figure { margin: 0 auto; max-width: 720px; background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: var(--s-6); }
+h1 { font-size: var(--t-1); line-height: 1.25; margin: 0; font-weight: 700; max-width: 34ch; }
+.sub { color: var(--ink-2); margin: var(--s-2) 0 0; max-width: 60ch; font-size: var(--t-0); }
+svg { display: block; width: 100%; height: auto; margin-top: var(--s-5); }
+.grid-line { stroke: var(--rule); stroke-width: 1; }
+.tick { fill: var(--ink-3); font-size: 14px; }
+.cat { fill: var(--ink); font-size: 16px; }
+.bar { fill: var(--neutral); }
+.bar.lead { fill: var(--series); }
+.hit { fill: transparent; }
+.bar-hit:hover .bar, .bar-hit:focus-visible .bar { opacity: 0.85; }
+.val { fill: var(--ink); font-size: 16px; font-weight: 700; }
+.baseline { stroke: var(--ink-3); stroke-width: 1; }
+figcaption { margin-top: var(--s-4); color: var(--ink-3); font-size: var(--t-s); max-width: 70ch; }
+details { margin-top: var(--s-4); }
+summary { cursor: pointer; color: #1c5cab; font-weight: 600; min-height: 44px; display: flex; align-items: center; } /* the series hue at text strength, 6.6:1 (#690) */
+table { border-collapse: collapse; margin-top: var(--s-3); width: 100%; max-width: 32rem; }
+th, td { text-align: left; padding: var(--s-2) var(--s-2); border-bottom: 1px solid var(--rule); }
+th { font-size: var(--t-s); color: var(--ink-2); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.note { margin: var(--s-5) auto 0; max-width: 720px; color: var(--ink-2); font-size: 1rem; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+/* Narrow screens: less chrome so the chart keeps enough width for its hit areas. Last, so it wins the cascade. */
+@media (max-width: 600px) { body { padding: var(--s-5) var(--s-4); } figure { padding: var(--s-4); } }
+</style>
+</head>
+<body>
+<figure aria-labelledby="title" aria-describedby="desc">
+  <h1 id="title">Low-contrast text is on 84 per cent of home pages, more than any other detected failure</h1>
+  <p class="sub" id="desc">Share of one million home pages with each failure, WebAIM Million, February 2026. Bars are ordered by value; the finding is the first one.</p>
+
+  <!-- Horizontal bars: category on the left, value at the tip, zero baseline, hairline grid.
+       Plot: x from 240 (0%) to 660 (100%), 4.2px per point. Bars 24px thick, 4px rounded
+       at the data end only (clip to keep the baseline end square), 32-unit gap so each
+       56-unit hit area meets its neighbour without overlapping, and is still 24px at 390px wide. -->
+  <svg viewBox="0 0 700 318" role="img">
+    <defs>
+      <clipPath id="c1"><rect x="240" y="20" width="352.4" height="24"/></clipPath>
+      <clipPath id="c2"><rect x="240" y="76" width="223" height="24"/></clipPath>
+      <clipPath id="c3"><rect x="240" y="132" width="214.2" height="24"/></clipPath>
+      <clipPath id="c4"><rect x="240" y="188" width="128.5" height="24"/></clipPath>
+      <clipPath id="c5"><rect x="240" y="244" width="56.7" height="24"/></clipPath>
+    </defs>
+    <g class="grid-line"><line x1="345" x2="345" y1="14" y2="282"/><line x1="450" x2="450" y1="14" y2="282"/><line x1="555" x2="555" y1="14" y2="282"/><line x1="660" x2="660" y1="14" y2="282"/></g>
+    <g class="tick"><text x="240" y="304" text-anchor="middle">0%</text><text x="345" y="304" text-anchor="middle">25%</text><text x="450" y="304" text-anchor="middle">50%</text><text x="555" y="304" text-anchor="middle">75%</text><text x="660" y="304" text-anchor="middle">100%</text></g>
+
+    <g class="cat"><text x="228" y="37" text-anchor="end">Low-contrast text</text><text x="228" y="93" text-anchor="end">Missing alt text</text><text x="228" y="149" text-anchor="end">Unlabelled form fields</text><text x="228" y="205" text-anchor="end">Empty buttons</text><text x="228" y="261" text-anchor="end">No document language</text></g>
+
+    <!-- each bar is 4px wider than its value so the rounded end lands at the value after clipping -->
+    <g class="bar-hit" tabindex="0"><title>Low-contrast text: 83.9 per cent of home pages</title><rect class="hit" x="240" y="4" width="420" height="56"/><rect class="bar lead" x="236" y="20" width="356.4" height="24" rx="4" clip-path="url(#c1)"/></g>
+    <g class="bar-hit" tabindex="0"><title>Missing alternative text on images: 53.1 per cent</title><rect class="hit" x="240" y="60" width="420" height="56"/><rect class="bar" x="236" y="76" width="227" height="24" rx="4" clip-path="url(#c2)"/></g>
+    <g class="bar-hit" tabindex="0"><title>Missing form input labels: 51.0 per cent</title><rect class="hit" x="240" y="116" width="420" height="56"/><rect class="bar" x="236" y="132" width="218.2" height="24" rx="4" clip-path="url(#c3)"/></g>
+    <g class="bar-hit" tabindex="0"><title>Empty buttons: 30.6 per cent</title><rect class="hit" x="240" y="172" width="420" height="56"/><rect class="bar" x="236" y="188" width="132.5" height="24" rx="4" clip-path="url(#c4)"/></g>
+    <g class="bar-hit" tabindex="0"><title>Missing document language: 13.5 per cent</title><rect class="hit" x="240" y="228" width="420" height="56"/><rect class="bar" x="236" y="244" width="60.7" height="24" rx="4" clip-path="url(#c5)"/></g>
+
+    <g class="val"><text x="600" y="37">83.9%</text><text x="471" y="93">53.1%</text><text x="462" y="149">51.0%</text><text x="377" y="205">30.6%</text><text x="305" y="261">13.5%</text></g>
+    <line class="baseline" x1="240" x2="240" y1="14" y2="282"/>
+  </svg>
+
+  <figcaption>Source: WebAIM, The WebAIM Million (February 2026), as recorded in Design Brain entries #1029, #710, #707, #1031 and #712. Percentages are the share of one million home pages on which the failure was detected automatically; undetectable failures are not counted, so every figure is a floor.</figcaption>
+
+  <details>
+    <summary>Show the figures as a table</summary>
+    <table>
+      <thead><tr><th>Failure</th><th class="num">Home pages affected</th></tr></thead>
+      <tbody>
+        <tr><td>Low-contrast text</td><td class="num">83.9%</td></tr>
+        <tr><td>Missing alternative text on images</td><td class="num">53.1%</td></tr>
+        <tr><td>Missing form input labels</td><td class="num">51.0%</td></tr>
+        <tr><td>Empty buttons</td><td class="num">30.6%</td></tr>
+        <tr><td>Missing document language</td><td class="num">13.5%</td></tr>
+      </tbody>
+    </table>
+  </details>
+</figure>
+<p class="note">A worked example from GoodLad's Design Brain. The figures are the ones the corpus cites; the chart is the exhibit.</p>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "design-brain",
+  "version": "2.0.0",
+  "description": "Design from fundamentals rather than from a reference to copy. A method that runs at decision time (order of decisions, numbers card, anti-defaults, brief translation, artefact playbooks, worked derivations), a measurement tool that checks the rendered page against WCAG and the corpus, and 1,124 sourced design entries across 31 sections for lookup and citation. Every answer carries an entry number and a named primary source.",
+  "author": {
+    "name": "Tom Moore",
+    "url": "https://github.com/GoodLadTom"
+  },
+  "homepage": "https://design-brain-rust.vercel.app",
+  "repository": "https://github.com/GoodLadTom/design-brain-v2",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "design-system",
+    "typography",
+    "accessibility",
+    "critique",
+    "measurement",
+    "claude-code",
+    "codex",
+    "cursor"
+  ]
+}

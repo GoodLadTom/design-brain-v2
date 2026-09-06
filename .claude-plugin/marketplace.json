@@ -1,0 +1,18 @@
+{
+  "name": "goodlad-design-brain-v2",
+  "owner": {
+    "name": "Tom Moore",
+    "url": "https://github.com/GoodLadTom"
+  },
+  "metadata": {
+    "description": "GoodLad's Design Brain v2 — a design method, a measurement tool and 1,124 sourced fundamentals, as an offline skill.",
+    "version": "2.0.0"
+  },
+  "plugins": [
+    {
+      "name": "design-brain",
+      "source": "./",
+      "description": "Design from fundamentals: method, measurement tool and 1,124 sourced entries. Every answer cites an entry number and a named source."
+    }
+  ]
+}

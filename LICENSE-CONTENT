@@ -1,0 +1,26 @@
+Design Brain corpus
+Copyright (c) 2026 Tom Moore (GoodLad)
+
+The corpus is licensed under a Creative Commons Attribution 4.0 International
+Licence (CC BY 4.0).
+
+  https://creativecommons.org/licenses/by/4.0/
+
+This covers the 1,119 entries and the section introductions, wherever they
+appear in this repository: skills/design-brain/data/design-brain.json,
+site/data/sNN.js, Design-Fundamentals-Master-List.md and
+Design-Fundamentals-Verified-List.md.
+
+You are free to share and adapt the material for any purpose, including
+commercially, provided you give appropriate credit, link to the licence, and
+say whether you made changes.
+
+Suggested attribution:
+
+  Design Brain by Tom Moore (GoodLad), CC BY 4.0.
+  https://github.com/GoodLadTom/design-brain
+
+The works cited inside the corpus (books, papers, standards) belong to their
+own authors and publishers. Entries summarise and cite those sources; they do
+not reproduce them. Where a source is a standard such as WCAG, consult the
+standard itself for the authoritative wording.

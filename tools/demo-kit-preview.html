@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Demo kit preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+<link rel="stylesheet" href="../assets/demos.css">
+<style>
+  body { padding: 40px; }
+  .wrap { max-width: 700px; margin: 0 auto; }
+  h2 { font-family: var(--font-display); font-size: 20px; margin: 40px 0 12px; }
+  .field--demo .field__body { max-width: 660px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h2>1. Comparison pair — proximity</h2>
+<figure class="db-demo">
+  <div class="db-pair">
+    <div class="db-half">
+      <span class="db-tag db-tag--bad">Even spacing</span>
+      <div class="db-stage db-stage--tight">
+        <div class="db-row db-row--centre" style="min-height:70px">
+          <span class="db-dot"></span><span class="db-dot"></span>
+          <span class="db-dot"></span><span class="db-dot"></span>
+        </div>
+      </div>
+    </div>
+    <div class="db-half">
+      <span class="db-tag db-tag--good">Grouped</span>
+      <div class="db-stage db-stage--tight">
+        <div class="db-row db-row--centre db-row--loose" style="min-height:70px">
+          <span class="db-row db-row--tight"><span class="db-dot"></span><span class="db-dot"></span></span>
+          <span class="db-row db-row--tight"><span class="db-dot"></span><span class="db-dot"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption class="db-cap">Same four dots. Only the spacing changed, and the right pair reads as two things.</figcaption>
+</figure>
+
+<h2>2. Single stage — type scale</h2>
+<figure class="db-demo">
+  <div class="db-stage">
+    <div class="db-row db-row--baseline">
+      <span class="db-specimen" style="font-size:12px">Aa</span>
+      <span class="db-specimen" style="font-size:15px">Aa</span>
+      <span class="db-specimen" style="font-size:19px">Aa</span>
+      <span class="db-specimen" style="font-size:24px">Aa</span>
+      <span class="db-specimen" style="font-size:30px">Aa</span>
+      <span class="db-specimen" style="font-size:38px">Aa</span>
+    </div>
+  </div>
+  <figcaption class="db-cap">A 1.25 ratio. Each step is a fixed multiple of the last, so the jumps stay even as sizes grow.</figcaption>
+</figure>
+
+<h2>3. Measure</h2>
+<figure class="db-demo">
+  <div class="db-pair">
+    <div class="db-half">
+      <span class="db-tag db-tag--bad">Too wide</span>
+      <div class="db-stage db-stage--tight">
+        <div class="db-type db-measure-wide" style="font-size:11px;line-height:1.5">
+          <p>The eye has to travel a long way to the end of the line and then find its way back to the start of the next one, and after a few lines it starts landing on the wrong one and the reader loses their place entirely.</p>
+        </div>
+      </div>
+    </div>
+    <div class="db-half">
+      <span class="db-tag db-tag--good">45 to 75 characters</span>
+      <div class="db-stage db-stage--tight">
+        <div class="db-type" style="font-size:11px;line-height:1.5;max-width:26em">
+          <p>The return sweep is short, so the eye lands on the right line every time and the reader keeps their place without effort.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption class="db-cap">Identical size and leading. Only the column width differs.</figcaption>
+</figure>
+
+<h2>4. Colour ramp and contrast</h2>
+<figure class="db-demo">
+  <div class="db-stage">
+    <div class="db-col">
+      <div class="db-ramp">
+        <span style="background:#f7f4ed"></span><span style="background:#d9d2c2"></span>
+        <span style="background:#b0a48c"></span><span style="background:#7d7159"></span>
+        <span style="background:#4a4234"></span><span style="background:#17150f"></span>
+      </div>
+      <div class="db-row">
+        <span class="db-chip-text" style="background:#f7f4ed;color:#b0a48c;flex:1">1.9:1 fails</span>
+        <span class="db-chip-text" style="background:#f7f4ed;color:#4a4234;flex:1">8.7:1 passes</span>
+      </div>
+    </div>
+  </div>
+  <figcaption class="db-cap">Same hue family. Only the lightness step decides whether the text is readable.</figcaption>
+</figure>
+
+<h2>5. SVG diagram — easing</h2>
+<figure class="db-demo">
+  <div class="db-stage">
+    <svg class="db-svg" viewBox="0 0 320 100">
+      <path class="s-mute" d="M20 85 H300"/>
+      <path class="s-mute" d="M20 85 V15"/>
+      <path class="s-mute" d="M20 85 L300 15" stroke-dasharray="3 3"/>
+      <path class="s-accent" d="M20 85 C 90 85, 110 15, 300 15"/>
+      <text class="t" x="24" y="12">ease-out</text>
+      <text class="t" x="215" y="80">linear</text>
+    </svg>
+  </div>
+  <figcaption class="db-cap">The dashed line moves at one speed throughout. The curve starts fast and settles.</figcaption>
+</figure>
+
+<h2>6. Interface fragment</h2>
+<figure class="db-demo">
+  <div class="db-pair">
+    <div class="db-half">
+      <span class="db-tag db-tag--bad">Placeholder as label</span>
+      <div class="db-stage db-stage--tight">
+        <div class="db-ui"><span class="db-input">Card number</span></div>
+      </div>
+    </div>
+    <div class="db-half">
+      <span class="db-tag db-tag--good">Persistent label</span>
+      <div class="db-stage db-stage--tight">
+        <div class="db-ui">
+          <span class="db-label">Card number</span>
+          <span class="db-input">4242 4242 4242 4242</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption class="db-cap">Once the left field is filled in, nothing on screen says what the number was for.</figcaption>
+</figure>
+
+<h2>7. Grid overlay</h2>
+<figure class="db-demo">
+  <div class="db-stage" style="position:relative">
+    <div class="db-cols"></div>
+    <div class="db-row db-row--top" style="position:relative">
+      <div class="db-lines" style="flex:2"><i></i><i></i><i></i><i></i></div>
+      <div class="db-block db-block--outline" style="flex:1;min-height:60px"></div>
+    </div>
+  </div>
+  <figcaption class="db-cap">Six columns behind the content. The text spans four, the image two.</figcaption>
+</figure>
+
+<h2>8. Motion</h2>
+<figure class="db-demo">
+  <div class="db-stage">
+    <div class="db-col">
+      <div class="db-row"><span class="db-note" style="width:70px">linear</span><span class="db-dot db-dot--lg db-anim db-anim--slide db-anim--linear"></span></div>
+      <div class="db-row"><span class="db-note" style="width:70px">ease-out</span><span class="db-dot db-dot--lg db-dot--accent db-anim db-anim--slide db-anim--ease"></span></div>
+    </div>
+  </div>
+  <figcaption class="db-cap">Same distance, same duration. The lower dot arrives with weight because it decelerates.</figcaption>
+</figure>
+
+<h2>9. Balance</h2>
+<figure class="db-demo">
+  <div class="db-pair">
+    <div class="db-half">
+      <span class="db-tag db-tag--bad">Unresolved</span>
+      <div class="db-stage db-stage--tight">
+        <div class="db-row" style="min-height:80px;align-items:flex-start">
+          <span class="db-block db-block--ink" style="width:70px;height:70px"></span>
+        </div>
+      </div>
+    </div>
+    <div class="db-half">
+      <span class="db-tag db-tag--good">Counterweighted</span>
+      <div class="db-stage db-stage--tight">
+        <div class="db-row db-row--between" style="min-height:80px;align-items:flex-start">
+          <span class="db-block db-block--ink" style="width:70px;height:70px"></span>
+          <span class="db-col db-col--tight" style="padding-top:8px">
+            <span class="db-bar db-bar--thin" style="width:56px"></span>
+            <span class="db-bar db-bar--thin" style="width:44px"></span>
+            <span class="db-bar db-bar--thin" style="width:52px"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption class="db-cap">A small amount of detail on the right holds against a much larger mass on the left.</figcaption>
+</figure>
+
+</div>
+</body>
+</html>

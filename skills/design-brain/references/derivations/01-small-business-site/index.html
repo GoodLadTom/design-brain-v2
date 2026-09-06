@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harbourside Joinery, Whitstable: fitted kitchens and built-in storage</title>
+<meta name="description" content="Fitted kitchens, built-in storage and one-off pieces made in Whitstable by two joiners. Book a free site visit and get a written estimate within a week.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Two families, two jobs (#339): Young Serif carries the display voice, a
+     sturdy hand-cut serif that suits a workshop; IBM Plex Sans carries
+     everything read. The first draft used Fraunces and swapped it out because
+     Fraunces is now a model default (#10060). -->
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ---- Decisions as tokens. Every value below is in DECISIONS.md. ---- */
+:root {
+  --paper: #eef0ea;          /* cool pale ground, so the warm oak accent advances (#311, #286) */
+  --paper-2: #e3e6dd;        /* raised surface, same family */
+  --ink: #1b1d18;            /* measured 14.6:1 on paper */
+  --ink-2: #474b43;          /* measured 7.8:1, secondary text */
+  --rule: #cfd3c8;
+  --accent: #8a4b1e;         /* from oak end-grain; 5.9:1 on paper, white on it 6.8:1 (#842, #307) */
+  --accent-ink: #ffffff;
+
+  --display: "Young Serif", "Iowan Old Style", Georgia, serif;
+  --text: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+
+  /* Scale: base 18, ratio 1.25 (#345, #1023): 18, 22, 28, 44, 55.
+     The root is 112.5% (18px), so 1rem = 18px and every token below is a
+     ratio of the body size. The first draft put 1.125rem on <html> and used
+     rem tokens, which silently scaled every token by 18/16; measure.mjs caught
+     it (sizes came out 18, 24.8, 31.5, 61.9). */
+  --t-0: 1rem;        /* 18 body */
+  --t-1: 1.2222rem;   /* 22 h3, lead */
+  --t-2: 1.5556rem;   /* 28 h2 */
+  --t-3: 2.4444rem;   /* 44 h1 small */
+  --t-4: 3.0556rem;   /* 55 h1 large */
+  --t-s: 0.8889rem;   /* 16 labels, hints, footer: the floor, not below it (#1013) */
+
+  /* Spacing: 4, 8, 12, 16, 24, 32, 48, 64, 96 (#413, #765) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px;
+  --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+
+  --measure: 62ch;           /* #372 */
+  --radius: 3px;             /* one radius, everywhere (#767, #1039) */
+}
+* { box-sizing: border-box; }
+html { background: var(--paper); color: var(--ink); font-size: 112.5%; font-family: var(--text); line-height: 1.55; -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; }
+h1 { font-size: clamp(var(--t-3), 5vw, var(--t-4)); line-height: 1.05; letter-spacing: -0.01em; max-width: 16ch; }
+h2 { font-size: var(--t-2); line-height: 1.2; }
+h3 { font-size: var(--t-1); line-height: 1.25; }
+p { margin: 0 0 var(--s-4); max-width: var(--measure); }
+p:last-child { margin-bottom: 0; }
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 0.15em; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+.wrap { width: min(100% - 2 * var(--s-5), 1120px); margin-inline: auto; }
+.label { font-size: var(--t-s); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); }
+
+/* ---- Header: wordmark left, three links, one action (#622) ---- */
+.top { display: flex; align-items: center; gap: var(--s-5); padding: var(--s-5) 0; border-bottom: 1px solid var(--rule); }
+.mark { display: flex; align-items: center; gap: var(--s-3); text-decoration: none; color: var(--ink); font-family: var(--display); font-size: var(--t-1); font-weight: 400; }
+.mark svg { width: 28px; height: 28px; flex: none; }
+.nav { display: flex; gap: var(--s-5); margin-left: auto; }
+.nav a { color: var(--ink); text-decoration: none; padding: var(--s-3) 0; min-height: 44px; display: inline-flex; align-items: center; }
+.nav a:hover { text-decoration: underline; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--s-5); background: var(--accent); color: var(--accent-ink); border-radius: var(--radius); text-decoration: none; font-weight: 600; border: 0; font: inherit; font-weight: 600; cursor: pointer; }
+.btn:hover { background: #733c14; }
+.top .btn { flex: none; }
+
+/* ---- Hero: asymmetrical, 7/5 (#87, #409). Claim left, the process right. ---- */
+.hero { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-8); padding: var(--s-9) 0 var(--s-8); align-items: start; }
+.hero .lead { font-size: var(--t-1); line-height: 1.45; color: var(--ink-2); margin-top: var(--s-5); max-width: 40ch; }
+.hero .btn { margin-top: var(--s-6); }
+.hero small { display: block; margin-top: var(--s-3); color: var(--ink-2); font-size: var(--t-s); }
+.steps { background: var(--paper-2); padding: var(--s-6); border-radius: var(--radius); }
+.steps ol { margin: var(--s-4) 0 0; padding: 0; list-style: none; counter-reset: step; }
+.steps li { counter-increment: step; display: grid; grid-template-columns: 2ch 1fr; gap: var(--s-4); padding: var(--s-4) 0; border-top: 1px solid var(--rule); }
+.steps li::before { content: counter(step); font-family: var(--display); font-size: var(--t-1); line-height: 1.1; color: var(--accent); }
+.steps li strong { display: block; font-weight: 600; }
+
+/* ---- Work: ranked, not equal. Kitchens dominant, the other two beneath (#96, #1048). ---- */
+section { padding: var(--s-8) 0; border-top: 1px solid var(--rule); }
+.section-head { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 7fr); gap: var(--s-6); margin-bottom: var(--s-7); align-items: baseline; }
+.work { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-6); }
+.work .primary { grid-row: span 2; background: var(--paper-2); padding: var(--s-6); border-radius: var(--radius); }
+.work .primary h3 { font-size: var(--t-2); }
+.work .secondary { padding: var(--s-5) 0; border-top: 1px solid var(--rule); }
+.work .secondary:first-of-type { border-top: 0; padding-top: 0; }
+.work h3 { margin-bottom: var(--s-3); }
+.woods { margin: var(--s-5) 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.woods li { padding: var(--s-1) var(--s-3); border: 1px solid var(--rule); border-radius: var(--radius); font-size: var(--t-s); color: var(--ink-2); }
+
+/* ---- About: two columns of text, no photos supplied so none used (#481) ---- */
+.about { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 7fr); gap: var(--s-6); }
+
+/* ---- Visit form: single column, labels above (#613, #612), four fields (#1043) ---- */
+.visit { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--s-8); }
+form { max-width: 34rem; }
+.field { display: block; margin-bottom: var(--s-5); }
+.field span { display: block; font-weight: 600; margin-bottom: var(--s-2); }
+.field .hint { font-weight: 400; color: var(--ink-2); font-size: var(--t-s); margin-bottom: var(--s-2); }
+input, select, textarea { width: 100%; min-height: 48px; padding: var(--s-3) var(--s-4); font: inherit; color: var(--ink); background: #fff; border: 1px solid #7d8077; border-radius: var(--radius); }
+textarea { min-height: 120px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 3px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+form .btn { margin-top: var(--s-2); }
+.visit-side p + p { margin-top: var(--s-4); }
+
+/* ---- Footer ---- */
+footer { padding: var(--s-7) 0 var(--s-8); border-top: 1px solid var(--rule); color: var(--ink-2); font-size: var(--t-s); }
+footer .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-6); }
+footer address { font-style: normal; }
+footer .fictional { margin-top: var(--s-6); padding-top: var(--s-5); border-top: 1px solid var(--rule); max-width: var(--measure); }
+
+/* ---- Narrow: everything single column; the measure stays capped ---- */
+@media (max-width: 860px) {
+  .hero, .work, .about, .visit, .section-head { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  .hero { padding: var(--s-7) 0; }
+  .work .primary { grid-row: auto; }
+  footer .cols { grid-template-columns: minmax(0, 1fr); }
+  .nav { display: none; } /* three links, all reachable below; the action stays (#622) */
+  .section-head { margin-bottom: var(--s-6); }
+}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="mark" href="#top" aria-label="Harbourside Joinery, home">
+    <!-- Wordmark plus a dovetail drawn in code: no logo file exists, so nothing is stretched (#1056) -->
+    <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M2 5h10l4 4-4 4h10v10H12l-4-4 4-4H2z" fill="#8a4b1e"/></svg>
+    Harbourside Joinery
+  </a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#work">What we make</a>
+    <a href="#about">The joiners</a>
+    <a href="#visit">Book a visit</a>
+  </nav>
+  <a class="btn" href="#visit">Book a site visit</a>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="label">Whitstable, Kent</p>
+      <h1>Fitted kitchens and built-in storage, made in our workshop</h1>
+      <p class="lead">Two joiners, one workshop on Harbour Street. We measure your room, design around it, and make every piece ourselves in oak, ash or painted tulipwood.</p>
+      <a class="btn" href="#visit">Book a site visit</a>
+      <small>Free. About an hour. Written estimate within seven days.</small>
+    </div>
+    <aside class="steps" aria-labelledby="steps-h">
+      <p class="label" id="steps-h">How a site visit works</p>
+      <ol>
+        <li><strong>We come to you</strong>We look at the room, measure it, and listen to what you want it to do.</li>
+        <li><strong>We talk it through</strong>Layout, timber, finish, and what it is likely to cost. No pressure, no deposit on the day.</li>
+        <li><strong>You get a written estimate</strong>Within seven days, itemised, with a drawing. Take your time with it.</li>
+      </ol>
+    </aside>
+  </div>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>What we make</h2>
+        <p>Three kinds of work. Kitchens are most of what we do, and the other two grow out of the same joinery.</p>
+      </div>
+      <div class="work">
+        <article class="primary">
+          <h3>Fitted kitchens</h3>
+          <p>Frame-and-panel or flat doors, solid timber or painted, with drawers that run on the same runners twenty years from now. We design the layout with you, make the carcasses and doors in the workshop, and fit it ourselves.</p>
+          <ul class="woods" aria-label="Timbers we work in">
+            <li>Oak</li><li>Ash</li><li>Painted tulipwood</li>
+          </ul>
+        </article>
+        <article class="secondary">
+          <h3>Built-in storage</h3>
+          <p>Alcove cupboards, wardrobes, window seats and bookcases, made to the wall rather than to a catalogue size, so nothing is scribed in with filler.</p>
+        </article>
+        <article class="secondary">
+          <h3>One-off pieces</h3>
+          <p>Tables, benches and desks, usually for a room we have already worked in. We take a few of these a year.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <h2>The joiners</h2>
+      <div>
+        <p>Dan Mercer trained as a cabinetmaker and has run the workshop since 2012. Ellie Ross joined in 2016 and does most of the kitchen design and fitting. There is nobody else: the people you meet on the visit are the people who make and fit the work.</p>
+        <p>We work within about 25 miles of Whitstable, which keeps fitting days short and means we can come back if something needs adjusting.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit">
+    <div class="wrap visit">
+      <div class="visit-side">
+        <h2>Book a site visit</h2>
+        <p>Tell us where you are and what you are planning. We will ring or email within two working days to fix a time.</p>
+        <p>If you would rather talk first, call <a href="tel:+441227000000">01227 000000</a>, Monday to Friday, 8 to 5.</p>
+      </div>
+      <form action="#" method="post">
+        <label class="field" for="name"><span>Your name</span><input id="name" name="name" type="text" autocomplete="name" required></label>
+        <label class="field" for="postcode"><span>Postcode</span><span class="hint">So we can check you are within our area.</span><input id="postcode" name="postcode" type="text" autocomplete="postal-code" required></label>
+        <label class="field" for="planning"><span>What are you planning?</span>
+          <select id="planning" name="planning">
+            <option>A kitchen</option>
+            <option>Built-in storage</option>
+            <option>A one-off piece</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+        <label class="field" for="contact"><span>Phone or email</span><span class="hint">Whichever you would rather we use.</span><input id="contact" name="contact" type="text" autocomplete="tel email" required></label>
+        <button class="btn" type="submit">Request a visit</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <address>
+        <strong>Harbourside Joinery</strong><br>
+        14 Harbour Street<br>Whitstable CT5 1AQ
+      </address>
+      <p>Workshop open Monday to Friday, 8 to 5.<br><a href="tel:+441227000000">01227 000000</a><br><a href="mailto:hello@harboursidejoinery.example">hello@harboursidejoinery.example</a></p>
+      <p>Fitted kitchens, built-in storage and one-off pieces, made and fitted within about 25 miles of Whitstable.</p>
+    </div>
+    <p class="fictional">Harbourside Joinery is a fictional business. This page is a worked example from GoodLad's Design Brain, built to show reasoning from design fundamentals, and makes no claim about any real company.</p>
+  </div>
+</footer>
+
+</body>
+</html>

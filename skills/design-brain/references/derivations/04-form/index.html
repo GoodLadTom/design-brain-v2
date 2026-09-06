@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a bike service at Ravel Cycles, Bristol</title>
+<meta name="description" content="Book a safety check, standard or full service at Ravel Cycles in Bristol. Drop off Tuesday to Saturday, 8.30 to 10.30.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- One family with real contrast of size and weight (#339, #340). A form does
+     not need a display voice; it needs the labels and the errors to be read. -->
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f4f5f7;         /* cool neutral ground; the shop's red is the accent */
+  --panel: #ffffff;
+  --ink: #16181d;           /* 16.5:1 on panel */
+  --ink-2: #4b505a;         /* 7.5:1, secondary */
+  --rule: #c9cdd4;
+  --field: #6b717c;         /* input borders, 4.0:1 on white (#691) */
+  --accent: #b3261e;        /* the shop's red, 6.4:1 on white; white on it 6.4:1 */
+  --accent-ink: #ffffff;
+  --error: #a4210f;         /* errors are red AND worded AND iconed (#318, #623) */
+  --error-bg: #fbe9e6;
+
+  --text: "Public Sans", "Segoe UI", Arial, sans-serif;
+  /* Scale: base 18, ratio 1.25 (#345): 18, 22, 28, 35. Root is 112.5% so 1rem = 18px. */
+  --t-0: 1rem; --t-1: 1.2222rem; --t-2: 1.5556rem; --t-3: 1.9444rem;
+  --t-s: 0.8889rem;         /* 16: hints and footer, the floor (#1013) */
+  /* Spacing: 4, 8, 12, 16, 24, 32, 48, 64 (#413, #765) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px;
+  --radius: 4px;
+  --measure: 60ch;
+}
+* { box-sizing: border-box; }
+html { background: var(--paper); color: var(--ink); font-size: 112.5%; font-family: var(--text); line-height: 1.5; }
+body { margin: 0; }
+h1, h2 { margin: 0; font-weight: 700; letter-spacing: -0.01em; }
+h1 { font-size: clamp(var(--t-2), 4vw, var(--t-3)); line-height: 1.1; max-width: 20ch; }
+h2 { font-size: var(--t-1); line-height: 1.25; }
+p { margin: 0 0 var(--s-4); max-width: var(--measure); }
+a { color: var(--accent); text-underline-offset: 0.15em; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+.wrap { width: min(100% - 2 * var(--s-5), 720px); margin-inline: auto; }
+header { padding: var(--s-5) 0; border-bottom: 1px solid var(--rule); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
+.mark { font-weight: 700; color: var(--ink); text-decoration: none; font-size: var(--t-1); min-height: 44px; display: inline-flex; align-items: center; }
+header a.tel { color: var(--ink); min-height: 44px; display: inline-flex; align-items: center; }
+
+main { padding: var(--s-7) 0 var(--s-8); }
+.intro { margin-bottom: var(--s-6); }
+.intro p { color: var(--ink-2); }
+
+/* ---- One column, labels above, 48px targets (#613, #612, #700) ---- */
+form { background: var(--panel); border: 1px solid var(--rule); border-radius: var(--radius); padding: var(--s-6); }
+fieldset { border: 0; padding: 0; margin: 0 0 var(--s-6); min-width: 0; }
+legend { font-weight: 700; padding: 0; margin-bottom: var(--s-4); font-size: var(--t-1); }
+.field { display: block; margin-bottom: var(--s-5); }
+.field:last-child { margin-bottom: 0; }
+.field > span, .field > label > span { display: block; font-weight: 600; margin-bottom: var(--s-2); }
+.hint { display: block; color: var(--ink-2); font-size: var(--t-s); margin-bottom: var(--s-2); font-weight: 400; }
+.optional { font-weight: 400; color: var(--ink-2); }
+input[type=text], input[type=email], input[type=tel], input[type=date], select, textarea {
+  width: 100%; min-height: 48px; padding: var(--s-3) var(--s-4); font: inherit; color: var(--ink);
+  background: var(--panel); border: 1px solid var(--field); border-radius: var(--radius);
+}
+textarea { min-height: 112px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 3px solid var(--ink); outline-offset: 2px; }
+input[type=email], input[type=tel] { max-width: 28rem; }
+input[type=date] { max-width: 16rem; }
+
+/* Radio choices as a list of full-width targets, price and time visible at the decision (#620) */
+.choices { display: grid; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.choice { display: grid; grid-template-columns: 24px 1fr auto; gap: var(--s-3); align-items: start; padding: var(--s-4); border: 1px solid var(--field); border-radius: var(--radius); cursor: pointer; }
+.choice input { width: 24px; height: 24px; margin: 2px 0 0; accent-color: var(--accent); }
+.choice strong { display: block; }
+.choice .meta { color: var(--ink-2); font-size: var(--t-s); }
+.choice .price { font-weight: 700; font-variant-numeric: tabular-nums; }
+.choice:has(input:checked) { border-color: var(--ink); border-width: 2px; padding: calc(var(--s-4) - 1px); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--s-5); background: var(--accent); color: var(--accent-ink); border: 0; border-radius: var(--radius); font: inherit; font-weight: 700; cursor: pointer; }
+.btn:hover { background: #8f1e18; }
+.after { margin-top: var(--s-3); color: var(--ink-2); font-size: var(--t-s); }
+
+/* ---- Error state: summary first, then the field says how to fix it (#619, #597, #1044) ---- */
+.error-summary { border: 2px solid var(--error); border-radius: var(--radius); padding: var(--s-4) var(--s-5); margin-bottom: var(--s-6); background: var(--error-bg); }
+.error-summary h2 { color: var(--error); font-size: var(--t-1); margin-bottom: var(--s-2); }
+.error-summary ul { margin: 0; padding-left: var(--s-5); }
+.error-summary a { color: var(--error); font-weight: 600; display: inline-block; padding: var(--s-1) 0; } /* 24px tall as a target (#700) */
+.field.is-error { border-left: 4px solid var(--error); padding-left: var(--s-4); margin-left: calc(-1 * var(--s-4) - 4px); }
+.error-msg { display: flex; gap: var(--s-2); color: var(--error); font-weight: 600; margin-bottom: var(--s-2); }
+.error-msg svg { width: 20px; height: 20px; flex: none; }
+.is-error input { border-color: var(--error); border-width: 2px; }
+
+/* ---- The two states, labelled as an exhibit ---- */
+.state { margin-bottom: var(--s-8); }
+.state-label { display: block; font-size: var(--t-s); font-weight: 700; color: var(--ink-2); margin-bottom: var(--s-4); padding-top: var(--s-3); border-top: 2px solid var(--ink-2); }
+footer { padding: var(--s-6) 0; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: var(--t-s); }
+footer p { max-width: 60ch; }
+@media (max-width: 480px) {
+  form { padding: var(--s-5); }
+  .field.is-error { margin-left: calc(-1 * var(--s-5)); padding-left: calc(var(--s-5) - 4px); }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="mark" href="#">Ravel Cycles</a>
+    <a class="tel" href="tel:+441170000000">0117 000 0000</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="intro">
+    <h1>Book a service</h1>
+    <p>Tell us about the bike and when you can drop it off. We confirm the slot by text or email within a working day. Prices are for labour; if you need parts we quote first.</p>
+  </div>
+
+  <!-- STATE 1: empty -------------------------------------------------------- -->
+  <section class="state" aria-labelledby="s1">
+    <span class="state-label" id="s1">State 1 of 2: before anything is typed</span>
+    <form action="#" method="post" novalidate>
+      <fieldset>
+        <legend>Which service</legend>
+        <ul class="choices">
+          <li><label class="choice"><input type="radio" name="service" value="check"><span><strong>Safety check</strong><span class="meta">Brakes, gears, tyres and bolts. About 30 minutes.</span></span><span class="price">£25</span></label></li>
+          <li><label class="choice"><input type="radio" name="service" value="standard" checked><span><strong>Standard service</strong><span class="meta">Check plus adjustment of brakes and gears, chain and cables. About two hours.</span></span><span class="price">£60</span></label></li>
+          <li><label class="choice"><input type="radio" name="service" value="full"><span><strong>Full service</strong><span class="meta">Strip, clean and rebuild. A full day.</span></span><span class="price">£120</span></label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>The bike</legend>
+        <label class="field" for="bike"><span>What kind of bike is it?</span><span class="hint">Road, hybrid, mountain, e-bike, cargo, or whatever you call it.</span><input id="bike" name="bike" type="text" autocomplete="off"></label>
+        <label class="field" for="notes"><span>Anything we should know? <span class="optional">(optional)</span></span><span class="hint">A noise, a wobble, a part you already bought.</span><textarea id="notes" name="notes"></textarea></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Drop-off</legend>
+        <label class="field" for="day"><span>Which day can you drop it off?</span><span class="hint">Tuesday to Saturday, between 8.30 and 10.30. Collect from 4.</span><input id="day" name="day" type="date" autocomplete="off"></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>How to reach you</legend>
+        <label class="field" for="name"><span>Your name</span><input id="name" name="name" type="text" autocomplete="name"></label>
+        <label class="field" for="mobile"><span>Mobile number</span><span class="hint">We text when it is ready.</span><input id="mobile" name="mobile" type="tel" autocomplete="tel"></label>
+        <label class="field" for="email"><span>Email <span class="optional">(optional)</span></span><span class="hint">Only if you would rather have the confirmation in writing.</span><input id="email" name="email" type="email" autocomplete="email"></label>
+      </fieldset>
+
+      <button class="btn" type="submit">Book this slot</button>
+      <p class="after">No payment now. You pay when you collect.</p>
+    </form>
+  </section>
+
+  <!-- STATE 2: after a failed submit ---------------------------------------- -->
+  <section class="state" aria-labelledby="s2">
+    <span class="state-label" id="s2">State 2 of 2: after a submit with two problems</span>
+    <form action="#" method="post" novalidate>
+      <div class="error-summary" role="alert" tabindex="-1" id="summary">
+        <h2>Two things to fix before we can book it</h2>
+        <ul>
+          <li><a href="#day2">Choose a day between Tuesday and Saturday</a></li>
+          <li><a href="#mobile2">Enter a mobile number so we can text you</a></li>
+        </ul>
+      </div>
+
+      <fieldset>
+        <legend>Which service</legend>
+        <ul class="choices">
+          <li><label class="choice"><input type="radio" name="service2" value="check"><span><strong>Safety check</strong><span class="meta">Brakes, gears, tyres and bolts. About 30 minutes.</span></span><span class="price">£25</span></label></li>
+          <li><label class="choice"><input type="radio" name="service2" value="standard" checked><span><strong>Standard service</strong><span class="meta">Check plus adjustment of brakes and gears, chain and cables. About two hours.</span></span><span class="price">£60</span></label></li>
+          <li><label class="choice"><input type="radio" name="service2" value="full"><span><strong>Full service</strong><span class="meta">Strip, clean and rebuild. A full day.</span></span><span class="price">£120</span></label></li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>The bike</legend>
+        <label class="field" for="bike2"><span>What kind of bike is it?</span><span class="hint">Road, hybrid, mountain, e-bike, cargo, or whatever you call it.</span><input id="bike2" name="bike" type="text" value="Hybrid, a Trek"></label>
+        <label class="field" for="notes2"><span>Anything we should know? <span class="optional">(optional)</span></span><span class="hint">A noise, a wobble, a part you already bought.</span><textarea id="notes2" name="notes">Clicking from the back wheel when I pedal hard.</textarea></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Drop-off</legend>
+        <div class="field is-error">
+          <label for="day2"><span>Which day can you drop it off?</span></label>
+          <span class="hint">Tuesday to Saturday, between 8.30 and 10.30. Collect from 4.</span>
+          <span class="error-msg" id="day2-error"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/><path d="M10 5v6M10 13.5v1.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>Sunday is closed. Choose a day between Tuesday and Saturday.</span>
+          <input id="day2" name="day" type="date" value="2026-09-13" aria-describedby="day2-error" aria-invalid="true">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>How to reach you</legend>
+        <label class="field" for="name2"><span>Your name</span><input id="name2" name="name" type="text" value="Priya Nair" autocomplete="name"></label>
+        <div class="field is-error">
+          <label for="mobile2"><span>Mobile number</span></label>
+          <span class="hint">We text when it is ready.</span>
+          <span class="error-msg" id="mobile2-error"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"/><path d="M10 5v6M10 13.5v1.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>Enter a mobile number so we can text you when the bike is ready.</span>
+          <input id="mobile2" name="mobile" type="tel" value="" aria-describedby="mobile2-error" aria-invalid="true" autocomplete="tel">
+        </div>
+        <label class="field" for="email2"><span>Email <span class="optional">(optional)</span></span><span class="hint">Only if you would rather have the confirmation in writing.</span><input id="email2" name="email" type="email" autocomplete="email"></label>
+      </fieldset>
+
+      <button class="btn" type="submit">Book this slot</button>
+      <p class="after">Everything you typed is still here. Nothing was lost.</p>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Ravel Cycles, 3 Cotham Hill, Bristol BS6 6LD. <a href="tel:+441170000000">0117 000 0000</a>. Workshop drop-off Tuesday to Saturday, 8.30 to 10.30.</p>
+    <p>Ravel Cycles is a fictional shop. This page is a worked example from GoodLad's Design Brain and makes no claim about any real business.</p>
+  </div>
+</footer>
+</body>
+</html>
