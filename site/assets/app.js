@@ -600,7 +600,7 @@
 
   function colophon() {
     return '<footer class="colophon">' +
-      '<span>GoodLad’s Design Brain v2 &middot; BrainGrapes internal reference</span>' +
+      '<span>GoodLad’s Design Brain v2 &middot; by Tom Moore &middot; corpus CC BY 4.0, code MIT</span>' +
       '<span>Set in Newsreader and IBM Plex Sans &middot; measure held near 66 characters &middot; 8px spacing scale</span>' +
       '<span>Every source named. Contested claims labelled. <a href="https://github.com/GoodLadTom/design-brain-v2">Source and skill on GitHub</a>.</span>' +
     '</footer>';

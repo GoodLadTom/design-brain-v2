@@ -2,7 +2,7 @@
 # Re-pull the Design Brain mirror from the live site and rebuild the query index.
 # Needs curl and node. Only run this when the live site has actually changed.
 set -euo pipefail
-BASE="${DESIGN_BRAIN_URL:-https://design-brain-rust.vercel.app}"
+BASE="${DESIGN_BRAIN_URL:-https://design-brain-v2.vercel.app}"
 SKILL="$(cd "$(dirname "$0")/.." && pwd)"
 REPO="$(cd "$SKILL/../.." && pwd)"
 SITE="$REPO/site"

@@ -5,7 +5,7 @@ without a reference to copy. Underneath it, 1,124 design fundamentals, each
 checked against a named primary source and labelled with whether it belongs on
 the list at all.
 
-Live site: **[design-brain-rust.vercel.app](https://design-brain-rust.vercel.app)**
+Live site: **[design-brain-v2.vercel.app](https://design-brain-v2.vercel.app)**
 
 Version 1 was a library: you looked things up. Version 2 is a method: it runs
 while the decisions are being made, and it measures the result before anyone
