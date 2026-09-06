@@ -52,6 +52,14 @@ wrong and the tool said so.
 for one studio's rules, and the decision log records where it overrode the
 core. One real overlay is included as the format to copy.
 
+**The site, run through its own method.** The v1 site was the other AI default:
+cream paper, a didone display face doing text jobs, tracked mono capitals on
+every label, a violet accent, 31 equal cards. The tool found two contrast
+slips and a 15px target in its chrome. The v2 site is two families with two
+jobs (Newsreader for reading, IBM Plex Sans for chrome), five type sizes
+instead of eleven, one accent, the search as the focal point, and the sections
+as a directory in seven named groups. Its decision log is `site/DECISIONS.md`.
+
 **The corpus.** Five entries added with new primary sources: auditory icons
 (Gaver 1986), tactons (Brewster and Brown 2004), loudness normalisation (EBU
 R 128), standard beep patterns (ISO 24500) and, in the failure modes, the

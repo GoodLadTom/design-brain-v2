@@ -9,13 +9,14 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Three families, three jobs: Bodoni Moda displays (and demonstrates optical
-     sizing), Newsreader carries the reading text, IBM Plex Mono labels. -->
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Two families, two jobs: Newsreader for everything read, with its optical
+     size axis doing the headings; IBM Plex Sans for the chrome. Plex Mono is
+     loaded for the demos only. -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="assets/styles.css">
 <link rel="stylesheet" href="assets/demos.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%2317150f'/><text y='72' x='50' text-anchor='middle' font-size='64' fill='%23f7f4ed' font-family='Georgia,serif'>D</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231b1a17'/><text y='72' x='50' text-anchor='middle' font-size='64' fill='%23f4f3ef' font-family='Georgia,serif'>D</text></svg>">
 </head>
 <body>
 
@@ -35,7 +36,7 @@
 
   <div class="topbar__search">
     <label class="visually-hidden" for="search">Search every fundamental</label>
-    <input class="search-input" id="search" type="search" placeholder="Search every fundamental" autocomplete="off" spellcheck="false">
+    <input class="search-input" id="search" type="search" placeholder="Search 1,124 fundamentals" autocomplete="off" spellcheck="false">
     <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
       <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6" stroke-linecap="round"/>
     </svg>
@@ -61,15 +62,12 @@
 
 <div class="layout">
   <nav class="rail" id="rail" aria-label="Sections">
+    <ul id="rail-list"></ul>
     <div class="rail__group">
-      <div class="rail__heading">Sections</div>
-      <ul id="rail-list"></ul>
-    </div>
-    <div class="rail__group">
-      <div class="rail__heading">Views</div>
+      <div class="rail__heading">Also</div>
       <ul>
-        <li><a class="rail__link" href="#/"><span class="rail__num">&mdash;</span><span class="rail__title">Index</span></a></li>
-        <li><a class="rail__link" href="#/audit"><span class="rail__num">&mdash;</span><span class="rail__title">Audit trail</span></a></li>
+        <li><a class="rail__link" href="#/"><span class="rail__num"></span><span class="rail__title">Index</span></a></li>
+        <li><a class="rail__link" href="#/audit"><span class="rail__num"></span><span class="rail__title">Audit trail</span></a></li>
       </ul>
     </div>
   </nav>

@@ -10,38 +10,51 @@
 
   /* ---------------------------------------------------------------- manifest */
 
+  /* Counts and blurbs are copied from the data so the index paints complete
+     before any section file has arrived. Keep them in step with site/data. */
   var SECTIONS = [
-    { n: 1,  slug: 'first-principles',    title: 'First principles and doctrines',        from: 1,    to: 50 },
-    { n: 2,  slug: 'elements',            title: 'Elements of visual language',           from: 51,   to: 84 },
-    { n: 3,  slug: 'composition',         title: 'Principles of composition',             from: 85,   to: 154 },
-    { n: 4,  slug: 'gestalt',             title: 'Gestalt principles of perception',      from: 155,  to: 174 },
-    { n: 5,  slug: 'perception',          title: 'Perception, vision and cognition',      from: 175,  to: 225 },
-    { n: 6,  slug: 'named-laws',          title: 'Named laws and effects used in design', from: 226,  to: 268 },
-    { n: 7,  slug: 'colour',              title: 'Colour',                                from: 269,  to: 325 },
-    { n: 8,  slug: 'typography-macro',    title: 'Typography: macro',                     from: 326,  to: 369 },
-    { n: 9,  slug: 'typography-micro',    title: 'Typography: micro',                     from: 370,  to: 405 },
-    { n: 10, slug: 'grid-layout',         title: 'Grid and layout systems',               from: 406,  to: 447 },
-    { n: 11, slug: 'proportion',          title: 'Proportion and geometry',               from: 448,  to: 463 },
-    { n: 12, slug: 'image',               title: 'Image, photography and iconography',    from: 464,  to: 495 },
-    { n: 13, slug: 'data-viz',            title: 'Information design and data visualisation', from: 496, to: 535 },
-    { n: 14, slug: 'interaction',         title: 'Interaction principles',                from: 536,  to: 590 },
-    { n: 15, slug: 'ia-wayfinding',       title: 'Information architecture and wayfinding', from: 637, to: 661 },
-    { n: 16, slug: 'content-voice',       title: 'Content, copy and voice',               from: 662,  to: 687 },
-    { n: 17, slug: 'accessibility',       title: 'Accessibility and inclusive design',    from: 688,  to: 720 },
-    { n: 18, slug: 'motion',              title: 'Motion and animation',                  from: 721,  to: 754 },
-    { n: 19, slug: 'sound-haptics',       title: 'Sound and haptics',                     from: 755,  to: 760 },
-    { n: 20, slug: 'design-systems',      title: 'Design systems',                        from: 761,  to: 790 },
-    { n: 21, slug: 'web-craft',           title: 'Web and front-end craft',               from: 791,  to: 819 },
-    { n: 22, slug: 'brand',               title: 'Brand and identity',                    from: 820,  to: 854 },
-    { n: 23, slug: 'editorial-print',     title: 'Editorial, book and print production',  from: 855,  to: 876 },
-    { n: 24, slug: 'signage',             title: 'Environmental, signage and exhibition', from: 877,  to: 891 },
-    { n: 25, slug: 'product-design',      title: 'Product and industrial design',         from: 892,  to: 912 },
-    { n: 26, slug: 'architecture',        title: 'Architecture, space and urbanism',      from: 913,  to: 943 },
-    { n: 27, slug: 'process',             title: 'Process and method',                    from: 944,  to: 984 },
-    { n: 28, slug: 'ethics',              title: 'Ethics and responsibility',             from: 985,  to: 1010 },
-    { n: 29, slug: 'numbers',             title: 'Numbers worth memorising',              from: 1011, to: 1024 },
-    { n: 30, slug: 'failure-modes',       title: 'Common failure modes',                  from: 1025, to: 1060 },
-    { n: 31, slug: 'patterns',            title: 'Interface patterns and states',         from: 591,  to: 636 }
+    { n: 1, slug: 'first-principles', title: 'First principles and doctrines', from: 1, to: 50, count: 52, blurb: 'The big arguments about what design is for, and what anyone means by good.' },
+    { n: 2, slug: 'elements', title: 'Elements of visual language', from: 51, to: 84, count: 35, blurb: 'The raw vocabulary of visual work: point, line, plane, shape, colour, texture, space and the rest.' },
+    { n: 3, slug: 'composition', title: 'Principles of composition', from: 85, to: 154, count: 73, blurb: 'How elements are arranged on a surface: balance, emphasis, rhythm, unity and the space between things.' },
+    { n: 4, slug: 'gestalt', title: 'Gestalt principles of perception', from: 155, to: 174, count: 22, blurb: 'How the eye groups marks into objects, and the rules that decide what reads as one thing.' },
+    { n: 5, slug: 'perception', title: 'Perception, vision and cognition', from: 175, to: 225, count: 54, blurb: 'How eyes and memory actually work, and what that forces a designer to do differently.' },
+    { n: 6, slug: 'named-laws', title: 'Named laws and effects used in design', from: 226, to: 268, count: 46, blurb: 'The named rules designers quote in meetings, checked against the papers they actually come from.' },
+    { n: 7, slug: 'colour', title: 'Colour', from: 269, to: 325, count: 61, blurb: 'How colour is built, measured, named and set against itself, from RGB to Albers\'s classroom experiments.' },
+    { n: 8, slug: 'typography-macro', title: 'Typography: macro', from: 326, to: 369, count: 46, blurb: 'How typefaces are classified, chosen, paired and scaled, and what the letterforms are actually made of.' },
+    { n: 9, slug: 'typography-micro', title: 'Typography: micro', from: 370, to: 405, count: 37, blurb: 'The small decisions inside a column of text that decide whether people can actually read it.' },
+    { n: 10, slug: 'grid-layout', title: 'Grid and layout systems', from: 406, to: 447, count: 43, blurb: 'The invisible scaffolding that decides where things sit on a page or a screen.' },
+    { n: 11, slug: 'proportion', title: 'Proportion and geometry', from: 448, to: 463, count: 17, blurb: 'How ratio, scale and geometry set the sizes and shapes in a design, and which claims survive checking.' },
+    { n: 12, slug: 'image', title: 'Image, photography and iconography', from: 464, to: 495, count: 35, blurb: 'How photographs, illustrations and icons get framed, treated, cropped, delivered and captioned so they earn their place.' },
+    { n: 13, slug: 'data-viz', title: 'Information design and data visualisation', from: 496, to: 535, count: 41, blurb: 'How to turn numbers into pictures that tell the truth and can be read quickly.' },
+    { n: 14, slug: 'interaction', title: 'Interaction principles', from: 536, to: 590, count: 57, blurb: 'The named principles behind usable interfaces: affordances, feedback, error handling and the classic heuristic checklists.' },
+    { n: 15, slug: 'ia-wayfinding', title: 'Information architecture and wayfinding', from: 637, to: 661, count: 27, blurb: 'How content is grouped, named, linked and found, and how people work out where they are.' },
+    { n: 16, slug: 'content-voice', title: 'Content, copy and voice', from: 662, to: 687, count: 27, blurb: 'What the words in a design have to do, and which published standards actually govern them.' },
+    { n: 17, slug: 'accessibility', title: 'Accessibility and inclusive design', from: 688, to: 720, count: 37, blurb: 'How to design so that disability, temporary injury or a bad situation does not lock people out.' },
+    { n: 18, slug: 'motion', title: 'Motion and animation', from: 721, to: 754, count: 35, blurb: 'How things move on screen: the animator\'s craft rules, the timing numbers, and the safety limits.' },
+    { n: 19, slug: 'sound-haptics', title: 'Sound and haptics', from: 755, to: 760, count: 12, blurb: 'How interfaces use sound and vibration to confirm, warn and identify, and when to stay quiet.' },
+    { n: 20, slug: 'design-systems', title: 'Design systems', from: 761, to: 790, count: 32, blurb: 'How repeated design decisions get named, stored, documented and governed so a team builds one thing.' },
+    { n: 21, slug: 'web-craft', title: 'Web and front-end craft', from: 791, to: 819, count: 32, blurb: 'How web pages get built: layout that adapts, speed you can measure, states the browser gives you.' },
+    { n: 22, slug: 'brand', title: 'Brand and identity', from: 820, to: 854, count: 37, blurb: 'How an organisation gets a mark, a voice and a set of assets people can recognise anywhere.' },
+    { n: 23, slug: 'editorial-print', title: 'Editorial, book and print production', from: 855, to: 876, count: 23, blurb: 'How books and printed matter are structured, specified and manufactured, from front matter to ink limits.' },
+    { n: 24, slug: 'signage', title: 'Environmental, signage and exhibition', from: 877, to: 891, count: 17, blurb: 'Design that lives in physical space: signs people read while moving, and exhibitions people walk through.' },
+    { n: 25, slug: 'product-design', title: 'Product and industrial design', from: 892, to: 912, count: 22, blurb: 'Designing physical objects people hold, operate and eventually throw away or repair.' },
+    { n: 26, slug: 'architecture', title: 'Architecture, space and urbanism', from: 913, to: 943, count: 32, blurb: 'How buildings, streets and cities are shaped, and what those rules teach anyone arranging space.' },
+    { n: 27, slug: 'process', title: 'Process and method', from: 944, to: 984, count: 43, blurb: 'How design work is actually run: framing, researching, sketching, prototyping, testing and reviewing.' },
+    { n: 28, slug: 'ethics', title: 'Ethics and responsibility', from: 985, to: 1010, count: 28, blurb: 'Deceptive interface patterns, consent and privacy duties, and the older argument about what designers should work on.' },
+    { n: 29, slug: 'numbers', title: 'Numbers worth memorising', from: 1011, to: 1024, count: 15, blurb: 'The hard figures a designer should carry in their head, with the sources and the myths attached.' },
+    { n: 30, slug: 'failure-modes', title: 'Common failure modes', from: 1025, to: 1060, count: 39, blurb: 'The recurring ways real projects break, each one traced back to the standard or study that names it.' },
+    { n: 31, slug: 'patterns', title: 'Interface patterns and states', from: 591, to: 636, count: 47, blurb: 'States, patterns, forms and controls: what gets built with the principles, and how each piece is known to fail.' }
+  ];
+
+  /* Seven groups for the index and the rail. Order is reading order. */
+  var GROUPS = [
+    { title: 'Foundations', sections: [1, 2, 3, 11, 29] },
+    { title: 'Perception', sections: [4, 5, 6] },
+    { title: 'Colour and image', sections: [7, 12, 13] },
+    { title: 'Type and layout', sections: [8, 9, 10, 23] },
+    { title: 'Interaction and content', sections: [14, 31, 15, 16, 17] },
+    { title: 'Motion, sound and systems', sections: [18, 19, 20, 21] },
+    { title: 'Brand, place and practice', sections: [22, 24, 25, 26, 27, 28, 30] }
   ];
 
   SECTIONS.forEach(function (s) { s.expected = s.to - s.from + 1; });
@@ -179,16 +192,18 @@
 
   function paintRail() {
     var done = 0;
-    var html = SECTIONS.map(function (s) {
-      var data = window.DESIGN_BRAIN[s.n];
-      var count = data && data.entries ? data.entries.length : 0;
-      if (count) done += count;
-      var pending = !data;
-      return '<li><a class="rail__link' + (pending ? ' rail__link--pending' : '') +
-        '" href="#/s/' + s.n + '" data-sec="' + s.n + '">' +
-        '<span class="rail__num">' + (s.n < 10 ? '0' + s.n : s.n) + '</span>' +
-        '<span class="rail__title">' + esc(s.title) +
-        ' <span class="rail__count">' + (count ? count : s.expected) + '</span></span></a></li>';
+    var html = GROUPS.map(function (g) {
+      return '<li class="rail__group"><div class="rail__heading">' + esc(g.title) + '</div><ul>' +
+        g.sections.map(function (n) {
+          var s = sectionByN(n);
+          var data = window.DESIGN_BRAIN[n];
+          var count = data && data.entries ? data.entries.length : s.count;
+          if (data && data.entries) done += data.entries.length;
+          return '<li><a class="rail__link" href="#/s/' + n + '" data-sec="' + n + '">' +
+            '<span class="rail__num">' + n + '</span>' +
+            '<span class="rail__title">' + esc(s.title) +
+            ' <span class="rail__count">' + count + '</span></span></a></li>';
+        }).join('') + '</ul></li>';
     }).join('');
 
     els.railList.innerHTML = html;
@@ -198,7 +213,7 @@
     var sectionsDone = SECTIONS.filter(function (s) { return !!window.DESIGN_BRAIN[s.n]; }).length;
     els.progress.textContent = sectionsDone === SECTIONS.length
       ? Number(done).toLocaleString('en-GB') + ' entries'
-      : Number(done).toLocaleString('en-GB') + ' of ' + Number(TOTAL_EXPECTED).toLocaleString('en-GB');
+      : 'Loading ' + sectionsDone + ' of ' + SECTIONS.length + ' sections';
 
     if (indexed.length) {
       els.search.placeholder = 'Search ' + Number(indexed.length).toLocaleString('en-GB') + ' fundamentals';
@@ -232,66 +247,55 @@
 
   function setView(html) {
     els.view.innerHTML = html;
-    els.view.classList.remove('fade-in');
-    void els.view.offsetWidth;
-    els.view.classList.add('fade-in');
   }
 
   /* Home ------------------------------------------------------------------- */
 
   function renderHome() {
     document.title = 'GoodLad’s Design Brain v2';
-    var written = indexed.length;
-    var core = indexed.filter(function (e) { return e.verdict === 'core'; }).length;
-    var adjacent = indexed.filter(function (e) { return e.verdict === 'adjacent'; }).length;
-    var cut = indexed.filter(function (e) { return e.verdict === 'cut'; }).length;
-    var flagged = indexed.filter(function (e) {
-      return e.status === 'disputed' || e.status === 'unverified';
-    }).length;
+    var total = SECTIONS.reduce(function (a, x) { return a + x.count; }, 0);
+    var failureModes = sectionByN(30), numbers = sectionByN(29);
 
-    var cards = SECTIONS.map(function (s) {
-      var data = window.DESIGN_BRAIN[s.n];
-      var count = data && data.entries ? data.entries.length : 0;
-      var blurb = data && data.blurb ? data.blurb : 'Not written yet.';
-      return '<a class="sec-card' + (data ? '' : ' sec-card--pending') + '" href="#/s/' + s.n + '">' +
-        '<span class="sec-card__top">' +
-          '<span class="sec-card__num">' + (s.n < 10 ? '0' + s.n : s.n) + '</span>' +
-          '<span class="sec-card__count">' + (count ? count + ' entries' : 'pending') + '</span>' +
-        '</span>' +
-        '<span class="sec-card__title">' + esc(s.title) + '</span>' +
-        '<p class="sec-card__blurb">' + esc(blurb) + '</p>' +
-      '</a>';
+    var groups = GROUPS.map(function (g) {
+      return '<section class="group"><h2 class="group__title">' + esc(g.title) + '</h2><ul class="group__list">' +
+        g.sections.map(function (n) {
+          var sec = sectionByN(n);
+          var data = window.DESIGN_BRAIN[n];
+          var count = data && data.entries ? data.entries.length : sec.count;
+          var blurb = data && data.blurb ? data.blurb : sec.blurb;
+          return '<li><a class="sec-row" href="#/s/' + n + '">' +
+            '<span class="sec-row__num">' + n + '</span>' +
+            '<span class="sec-row__body">' +
+              '<span class="sec-row__title">' + esc(sec.title) + '<span class="sec-row__count">' + count + '</span></span>' +
+              '<span class="sec-row__blurb">' + esc(blurb) + '</span>' +
+            '</span></a></li>';
+        }).join('') + '</ul></section>';
     }).join('');
 
     setView(
       '<div class="wrap">' +
         '<header class="hero">' +
-          '<div class="rule-label"><span class="mono-label">The reference</span></div>' +
-          '<h1 class="hero__title">GoodLad’s Design Brain v2<br><em>every fundamental, checked</em></h1>' +
-          '<div class="hero__grid">' +
-            '<p class="lead">One entry for every design fundamental worth knowing: what it says, why it matters, how to use it, where it comes from, and whether it has any business being on the list at all. Sources are named. Contested ideas are labelled as contested.</p>' +
-            '<div class="stat-row">' +
-              stat(written, 'entries') +
-              stat(TOTAL_EXPECTED, 'master list') +
-              stat(core, 'core') +
-              stat(adjacent, 'adjacent') +
-              stat(cut, 'cut') +
-              stat(flagged, 'flagged') +
-            '</div>' +
-          '</div>' +
+          '<h1 class="hero__title">GoodLad’s Design Brain<span class="hero__v">v2</span></h1>' +
+          '<p class="hero__lead">' + fmt(total) + ' design fundamentals, each written in plain English, checked against a named source, and labelled with whether it belongs on the list at all.</p>' +
+          '<form class="hero__search" id="hero-search" role="search">' +
+            '<label class="visually-hidden" for="hero-q">Search every fundamental</label>' +
+            '<input class="hero__input" id="hero-q" type="search" placeholder="Try: line length, contrast, Fitts, hierarchy" autocomplete="off" spellcheck="false">' +
+            '<button class="hero__btn" type="submit">Search</button>' +
+          '</form>' +
+          '<ul class="ways">' +
+            '<li><a href="#/s/30"><strong>' + esc(failureModes.title) + '</strong><span>' + failureModes.count + ' ways real work goes wrong, as a checklist.</span></a></li>' +
+            '<li><a href="#/s/29"><strong>' + esc(numbers.title) + '</strong><span>The published thresholds: contrast, measure, targets, timing.</span></a></li>' +
+            '<li><a href="#/audit"><strong>Audit trail</strong><span>Everything cut, disputed or corrected, and why.</span></a></li>' +
+          '</ul>' +
         '</header>' +
-        '<section style="padding-top:var(--s-7)">' +
-          '<div class="rule-label"><span class="mono-label">Thirty-one sections</span>' +
-          '<a class="mono-label" href="#/audit" style="text-decoration:none">Audit trail &rarr;</a></div>' +
-          '<div class="section-index">' + cards + '</div>' +
+        '<div class="groups">' + groups + '</div>' +
+        '<section class="anatomy">' +
+          '<h2 class="group__title">What every entry holds</h2>' +
+          '<p>A one-line rule, a live demo, what it says, why it matters, how to use it, a checkable example, the published numbers, the way it goes wrong, and the named source. Then two labels: whether the facts stood up when checked, and whether it belongs on a design list at all.</p>' +
         '</section>' +
         colophon() +
       '</div>'
     );
-  }
-
-  function stat(n, label) {
-    return '<span class="stat"><span class="stat__n">' + fmt(n) + '</span><span class="stat__l">' + label + '</span></span>';
   }
 
   function fmt(n) { return Number(n).toLocaleString('en-GB'); }
@@ -327,13 +331,11 @@
     setView(
       '<div class="wrap">' +
         '<header class="page-head">' +
-          '<div class="page-head__eyebrow rule-label">' +
-            '<span class="mono-label">Section ' + (n < 10 ? '0' + n : n) + ' &middot; ' + entries.length + ' entries</span>' +
-          '</div>' +
+          '<div class="page-head__eyebrow"><span class="mono-label">Section ' + n + ' &middot; ' + entries.length + ' entries</span></div>' +
           '<h1 class="page-head__title">' + esc(data.title || s.title) + '</h1>' +
-          '<p class="page-head__intro">' + esc(data.intro || '') + '</p>' +
         '</header>' +
         (toc ? '<nav class="toc" aria-label="Entries in this section">' + toc + '</nav>' : '') +
+        (data.intro ? '<section class="section-intro"><h2>About this section</h2><p>' + esc(data.intro) + '</p></section>' : '') +
         entries.map(entryHtml).join('') +
         '<nav class="pagination">' +
           (prev ? '<a href="#/s/' + prev.n + '"><span class="mono-label">Previous</span><span class="pagination__t">' + esc(prev.title) + '</span></a>' : '<span></span>') +
@@ -343,7 +345,7 @@
           '<section style="margin-top:var(--s-8)">' +
             '<div class="rule-label"><span class="mono-label">Sources used in this section</span></div>' +
             '<ul class="measure">' + data.sources.map(function (x) {
-              return '<li style="padding:4px 0;color:var(--ink-2);font-size:0.9375rem">' + esc(x) + '</li>';
+              return '<li class="note" style="padding:4px 0">' + esc(x) + '</li>';
             }).join('') + '</ul>' +
           '</section>' : '') +
         colophon() +
@@ -357,8 +359,7 @@
     return '<div class="wrap"><div class="empty">' +
       '<div class="rule-label"><span class="mono-label">Section ' + s.n + '</span></div>' +
       '<h1 class="empty__title">' + esc(s.title) + '</h1>' +
-      '<p>This section has not been written yet. It covers entries ' + s.from + ' to ' + s.to +
-      ' of the master list, ' + s.expected + ' in total.</p>' +
+      '<p>This section could not be loaded. It holds ' + s.count + ' entries; try reloading the page.</p>' +
       '<p><a href="#/">Back to the index</a></p>' +
     '</div></div>';
   }
@@ -401,8 +402,8 @@
       (status ? '<span class="chip chip--' + esc(status) + '">' + (STATUS_WORD[status] || esc(status)) + '</span>' : '') +
       (verdict ? '<span class="chip chip--' + esc(verdict) + '">' + (VERDICT_WORD[verdict] || esc(verdict)) + '</span>' : '') +
       '</div>' +
-      (e.verify && e.verify.note ? '<p style="font-size:0.9375rem;color:var(--ink-2)">' + esc(e.verify.note) + '</p>' : '') +
-      (e.belongs && e.belongs.why ? '<p style="font-size:0.9375rem;color:var(--ink-2)">' + esc(e.belongs.why) + '</p>' : '');
+      (e.verify && e.verify.note ? '<p class="note">' + esc(e.verify.note) + '</p>' : '') +
+      (e.belongs && e.belongs.why ? '<p class="note">' + esc(e.belongs.why) + '</p>' : '');
     fields += field('Checked', checkBits);
 
     if (e.related && e.related.length) {
@@ -549,26 +550,39 @@
         (auditFilter === b[0]) + '">' + b[1] + '</button>';
     }).join('');
 
+    var written = indexed.length;
+    var count = function (k, v) { return indexed.filter(function (e) { return e[k] === v; }).length; };
+    var statsHtml = written ? '<dl class="stats">' +
+      '<div><dt>entries</dt><dd>' + fmt(written) + '</dd></div>' +
+      '<div><dt>core</dt><dd>' + fmt(count('verdict', 'core')) + '</dd></div>' +
+      '<div><dt>adjacent</dt><dd>' + fmt(count('verdict', 'adjacent')) + '</dd></div>' +
+      '<div><dt>cut</dt><dd>' + fmt(count('verdict', 'cut')) + '</dd></div>' +
+      '<div><dt>verified</dt><dd>' + fmt(count('status', 'verified')) + '</dd></div>' +
+      '<div><dt>adjusted</dt><dd>' + fmt(count('status', 'adjusted')) + '</dd></div>' +
+      '<div><dt>disputed</dt><dd>' + fmt(count('status', 'disputed')) + '</dd></div>' +
+      '<div><dt>unverified</dt><dd>' + fmt(count('status', 'unverified')) + '</dd></div>' +
+    '</dl>' : '';
+
     setView('<div class="wrap">' +
       '<header class="page-head">' +
-        '<div class="page-head__eyebrow rule-label"><span class="mono-label">Audit trail</span></div>' +
+        '<div class="page-head__eyebrow"><span class="mono-label">Audit trail</span></div>' +
         '<h1 class="page-head__title">What was checked, and what did not survive</h1>' +
-        '<p class="page-head__intro">Every entry carries a verdict on whether it belongs on a design list at all, and a status on how well its facts stand up. This is the list of everything that is not a plain, verified, core fundamental.</p>' +
+        '<p class="page-head__intro">Every entry carries a verdict on whether it belongs on a design list at all, and a status on how well its facts stood up. This is everything that is not a plain, verified, core fundamental.</p>' +
+        statsHtml +
       '</header>' +
       '<div class="filters">' + btns + '</div>' +
       (indexed.length < 40 ? '<div class="loading">Loading sections…</div>' : '') +
       (rows.length ? '<div class="results">' + rows.map(function (r) {
         return '<div class="audit-row">' +
-          '<a class="result__n" href="#/n/' + r.e.n + '" style="text-decoration:none">' + shortNum(r.e.n) + '</a>' +
-          '<a href="#/n/' + r.e.n + '" style="text-decoration:none"><strong style="font-family:var(--font-display);font-weight:400">' +
-            esc(r.e.title) + '</strong><br><span class="mono-label">' + esc(r.s.title) + '</span></a>' +
+          '<a class="audit-num" href="#/n/' + r.e.n + '">' + shortNum(r.e.n) + '</a>' +
+          '<a class="audit-title" href="#/n/' + r.e.n + '"><strong>' + esc(r.e.title) + '</strong><span>' + esc(r.s.title) + '</span></a>' +
           '<span class="audit-verdict chips">' +
             (r.st ? '<span class="chip chip--' + esc(r.st) + '">' + (STATUS_WORD[r.st] || esc(r.st)) + '</span>' : '') +
             (r.v ? '<span class="chip chip--' + esc(r.v) + '">' + (VERDICT_WORD[r.v] || esc(r.v)) + '</span>' : '') +
           '</span>' +
           '<span class="audit-why">' + esc((r.e.belongs && r.e.belongs.why) || '') +
             (r.e.verify && r.e.verify.note && (r.st === 'disputed' || r.st === 'adjusted' || r.st === 'unverified')
-              ? ' <em style="color:var(--ink-3)">' + esc(r.e.verify.note) + '</em>' : '') +
+              ? ' <em>' + esc(r.e.verify.note) + '</em>' : '') +
           '</span>' +
         '</div>';
       }).join('') + '</div>'
@@ -580,7 +594,7 @@
   function colophon() {
     return '<footer class="colophon">' +
       '<span>GoodLad’s Design Brain v2 &middot; BrainGrapes internal reference</span>' +
-      '<span>Set in Bodoni Moda, Newsreader and IBM Plex Mono &middot; measure held near 66 characters &middot; 8pt spacing scale</span>' +
+      '<span>Set in Newsreader and IBM Plex Sans &middot; measure held near 66 characters &middot; 8px spacing scale</span>' +
       '<span>Every source named. Contested claims labelled.</span>' +
     '</footer>';
   }
@@ -649,6 +663,14 @@
 
     els.navBtn.addEventListener('click', function () { document.body.classList.toggle('nav-open'); });
     els.scrim.addEventListener('click', function () { document.body.classList.remove('nav-open'); });
+
+    els.view.addEventListener('submit', function (ev) {
+      var form = ev.target.closest('#hero-search');
+      if (!form) return;
+      ev.preventDefault();
+      var q = form.querySelector('input').value.trim();
+      if (q) { els.search.value = q; go('#/q/' + encodeURIComponent(q)); }
+    });
 
     els.view.addEventListener('click', function (ev) {
       var jump = ev.target.closest('[data-jump]');

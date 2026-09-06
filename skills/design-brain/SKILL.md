@@ -115,7 +115,7 @@ python3 "$SKILL_DIR/scripts/query.py" critique <terms> [--limit N]
 python3 "$SKILL_DIR/scripts/query.py" numbers <terms> [--limit N]
 python3 "$SKILL_DIR/scripts/query.py" ... --json
 
-node "$SKILL_DIR/scripts/measure.mjs" <file.html | URL> [--viewport 1280x800] [--json] [--all]
+node "$SKILL_DIR/scripts/measure.mjs" <file.html | URL> [--viewport 1280x800] [--json] [--all] [--shot DIR]
 ```
 
 `query.py` needs Python 3 and nothing else. `measure.mjs` needs Node 22 or
@@ -123,9 +123,13 @@ later and a Chrome or Chromium install; set `DESIGN_BRAIN_CHROME` if it is
 somewhere unusual. It reports contrast, measure, line-height, body size, type
 sizes and families, spacing scale, target sizes, hue count, heading order, alt
 text, motion and reduced-motion, focus outlines, form labels and overflow, each
-keyed to the entry it comes from, at 1280 and 390 wide by default. Exit code 1
-on any FAIL, so it works as a gate. Put `data-measure-ignore` on anything that
-fails on purpose, such as a demo of bad contrast.
+keyed to the entry it comes from, at 1280 and 390 wide by default. It waits for
+the network to go quiet, so pages that load content after the load event are
+measured settled, and it reports text pushed past the viewport edge whether the
+page scrolls sideways or a container clips it. `--shot DIR` saves a full-page
+PNG of each viewport as measured, so the eye and the tool look at the same
+render. Exit code 1 on any FAIL, so it works as a gate. Put `data-measure-ignore`
+on anything that fails on purpose, such as a demo of bad contrast.
 
 Entry numbers run 1 to 1,060 in reading order, plus 64 later additions
 numbered from 9000 (#9756 is the entry added after #756), so `entry 9000` is

@@ -344,4 +344,4 @@
 }
 
 /* Entries judged not to need a visual. */
-.no-visual { font-size: 0.9375rem; color: var(--ink-3); margin: 0; font-style: italic; }
+.no-visual { font-size: var(--t-base); color: var(--ink-3); margin: 0; font-style: italic; }

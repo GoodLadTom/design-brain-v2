@@ -6,18 +6,20 @@
  * reports what it finds keyed to Design Brain entry numbers. Nothing here is
  * inferred from the source: every figure comes from the rendered page.
  *
- *   node measure.mjs <file.html | URL> [--viewport 1280x800] [--json] [--all]
+ *   node measure.mjs <file.html | URL> [--viewport 1280x800] [--json] [--all] [--shot DIR]
  *
  * Default runs two viewports, 1280x800 and 390x844, because the worst screen
  * is the one that matters. --viewport runs one. --all lists every finding
- * instead of the first few per check. Exit code 1 when any check FAILs.
+ * instead of the first few per check. --shot DIR saves a full-page PNG of each
+ * viewport as it was measured, because the measurement and the eye should look
+ * at the same render. Exit code 1 when any check FAILs.
  *
  * Needs Node 22+ (built-in WebSocket) and a Chrome or Chromium install.
  * Override the browser path with DESIGN_BRAIN_CHROME. Put data-measure-ignore
  * on any element whose contents fail on purpose (a demo of bad contrast, say).
  */
 import { spawn } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -30,6 +32,7 @@ if (!args.length || args.includes('--help') || args.includes('-h')) {
 const target = args.find(a => !a.startsWith('--'));
 const wantJson = args.includes('--json');
 const listAll = args.includes('--all');
+const shotDir = args.includes('--shot') ? args[args.indexOf('--shot') + 1] : null;
 const vpArg = args[args.indexOf('--viewport') + 1];
 const viewports = args.includes('--viewport') && /^\d+x\d+$/.test(vpArg || '')
   ? [vpArg.split('x').map(Number)]
@@ -190,10 +193,23 @@ function measureInPage() {
   // Elements that directly contain rendered text.
   const textEls = visEls.filter(el => [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim().length > 0));
 
-  guard('overflow', () => ({
-    scrollWidth: document.documentElement.scrollWidth, innerWidth: vw,
-    horizontal: document.documentElement.scrollWidth > vw + 1,
-  }));
+  guard('overflow', () => {
+    // Text pushed past the viewport edge is a failure whether the page scrolls sideways
+    // or a container clips it. scrollWidth misses the clipped case, so check the text itself.
+    const beyond = [], seen = new Set();
+    textEls.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.right > vw + 1 && r.width > 0) {
+        const k = sel(el).replace(/:nth-of-type\(\d+\)/g, '');
+        if (!seen.has(k)) { seen.add(k); beyond.push({ selector: k, right: Math.round(r.right), text: snippet(el.textContent) }); }
+      }
+    });
+    return {
+      scrollWidth: document.documentElement.scrollWidth, innerWidth: vw,
+      horizontal: document.documentElement.scrollWidth > vw + 1,
+      clipped: beyond,
+    };
+  });
 
   guard('type', () => {
     const sizes = {}, families = {}, weights = {};
@@ -428,9 +444,15 @@ function report(vp, m) {
   const push = (status, text, ref) => { lines.push(`${status.padEnd(5)} ${text}${ref ? `\n      ${ref}` : ''}`); if (status === 'FAIL') fails.push(text); };
   lines.push(`== ${vp[0]}x${vp[1]} ==`);
 
-  if (m.overflow) m.overflow.horizontal
-    ? push('FAIL', `Horizontal overflow: page is ${m.overflow.scrollWidth}px wide in a ${m.overflow.innerWidth}px viewport`, REF.overflow)
-    : push('PASS', 'No horizontal overflow');
+  if (m.overflow) {
+    if (m.overflow.horizontal) push('FAIL', `Horizontal overflow: page is ${m.overflow.scrollWidth}px wide in a ${m.overflow.innerWidth}px viewport`, REF.overflow);
+    if (m.overflow.clipped.length) {
+      push('FAIL', `${m.overflow.clipped.length} text element${m.overflow.clipped.length > 1 ? 's' : ''} extend past the ${m.overflow.innerWidth}px viewport edge (clipped or scrolling)`, REF.overflow);
+      cap(m.overflow.clipped).forEach(x => lines.push(`      right edge at ${x.right}px  "${x.text}"  ${x.selector}`));
+      if (more(m.overflow.clipped)) lines.push(more(m.overflow.clipped));
+    }
+    if (!m.overflow.horizontal && !m.overflow.clipped.length) push('PASS', 'No horizontal overflow, nothing clipped at the viewport edge');
+  }
 
   if (m.contrast) {
     const f = m.contrast.failures;
@@ -521,6 +543,7 @@ function report(vp, m) {
   }
 
   if (m.lang && !m.lang.lang) push('WARN', 'No lang attribute on <html>', '#713 Reading order in the DOM; WCAG 3.1.1');
+  if (m.screenshot) lines.push(`shot  ${m.screenshot}`);
   if (m.errors?.length) lines.push(`note  ${m.errors.length} check${m.errors.length > 1 ? 's' : ''} could not run: ${m.errors.join('; ')}`);
   return { lines, fails };
 }
@@ -536,13 +559,41 @@ try {
   const cdp = await CDP.connect(port);
   await cdp.send('Page.enable');
   await cdp.send('Runtime.enable');
+  await cdp.send('Network.enable');
+  const inflight = new Set();
+  cdp.listeners.push(msg => {
+    if (msg.method === 'Network.requestWillBeSent') inflight.add(msg.params.requestId);
+    if (msg.method === 'Network.loadingFinished' || msg.method === 'Network.loadingFailed') inflight.delete(msg.params.requestId);
+  });
+  // Settled = no request in flight for 600ms, or 12s, whichever first. Pages that
+  // load their content after the load event (this site does) need it.
+  const networkIdle = async () => {
+    const start = Date.now(); let quietSince = Date.now();
+    while (Date.now() - start < 12000) {
+      if (inflight.size === 0) { if (Date.now() - quietSince > 600) return; } else quietSince = Date.now();
+      await sleep(100);
+    }
+  };
   for (const vp of viewports) {
     await cdp.send('Emulation.setDeviceMetricsOverride', { width: vp[0], height: vp[1], deviceScaleFactor: 1, mobile: vp[0] < 600 });
     const loaded = cdp.once('Page.loadEventFired');
     await cdp.send('Page.navigate', { url });
     await Promise.race([loaded, sleep(15000)]);
+    await networkIdle();
     await cdp.evaluate('document.fonts.ready.then(() => new Promise(r => setTimeout(r, 400)))');
     const m = await cdp.evaluate(`(${measureInPage.toString()})()`);
+    if (shotDir) {
+      const height = Math.min(await cdp.evaluate('document.documentElement.scrollHeight'), 6000);
+      await cdp.send('Emulation.setDeviceMetricsOverride', { width: vp[0], height, deviceScaleFactor: 1, mobile: vp[0] < 600 });
+      await sleep(150);
+      const shot = await cdp.send('Page.captureScreenshot', { format: 'png' });
+      mkdirSync(shotDir, { recursive: true });
+      const base = path.basename(url.split('#')[0].split('?')[0]).replace(/\.[a-z]+$/i, '') || 'page';
+      const route = (url.split('#')[1] || '').replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '');
+      const file = path.join(shotDir, `${base}${route ? '-' + route : ''}-${vp[0]}x${vp[1]}.png`);
+      writeFileSync(file, Buffer.from(shot.data, 'base64'));
+      m.screenshot = file;
+    }
     results.push({ viewport: { width: vp[0], height: vp[1] }, ...m });
   }
 } finally {
