@@ -68,26 +68,73 @@ traced. Section 14 split into interaction principles and a new section 31 of
 interface patterns and states. Two contrast slips in the site's own chrome
 fixed, found by the tool.
 
-## Install as a skill
+## Requirements
 
-**Claude Code**
+- `query.py` needs Python 3.8 or later and nothing else.
+- `measure.mjs` needs Node 22 or later (it uses the built-in WebSocket) and a
+  Chrome or Chromium install. It looks in the usual places on macOS, Linux and
+  Windows; if yours is somewhere else, set `DESIGN_BRAIN_CHROME` to the binary.
+- The site needs a browser. No server, no build.
+
+## Install
+
+**Claude Code, as a plugin** (the recommended route; it updates with the repo)
 
 ```text
 /plugin marketplace add GoodLadTom/design-brain-v2
 /plugin install design-brain@goodlad-design-brain-v2
 ```
 
-Restart, then ask it to design something, or to critique something. It reads
-the core first, works the order of decisions, builds, measures, and hands over
-a decision log with entry numbers.
+Restart Claude Code. The skill is now `design-brain` and it triggers on its own
+for design work, critique and design-theory questions.
 
-**Codex, Cursor, or a plain symlink**
+**Claude Code, by hand** (no plugin system, or a single project)
+
+```bash
+git clone https://github.com/GoodLadTom/design-brain-v2.git
+cp -r design-brain-v2/skills/design-brain ~/.claude/skills/design-brain   # every project
+# or, for one project only:
+cp -r design-brain-v2/skills/design-brain .claude/skills/design-brain
+```
+
+**Codex, Cursor, or anything that reads a skills folder**
 
 ```bash
 git clone https://github.com/GoodLadTom/design-brain-v2.git
 cd design-brain-v2
 ./install.sh
 ```
+
+`install.sh` links the skill into `~/.claude/skills`, `~/.cursor/skills`,
+`~/.codex/skills` and `~/.agents/skills`, whichever exist, and reports whether
+Python, Node and Chrome are where the tools expect them.
+
+**Check it works**
+
+```bash
+python3 skills/design-brain/scripts/query.py entry 690
+node skills/design-brain/scripts/measure.mjs skills/design-brain/references/derivations/01-small-business-site/index.html
+```
+
+The first prints the contrast entry with its source. The second opens the
+joinery derivation in headless Chrome and reports PASS at 1280 and 390 wide.
+
+## Using it
+
+Say what you want built and name the skill, or don't: it triggers on design
+work by itself.
+
+- "Design a one-page site for a physiotherapy clinic in Leeds. Use Design
+  Brain." It reads the core, translates the brief, works the order of
+  decisions, builds, measures at both widths, and hands over a decision log
+  citing entry numbers.
+- "Critique this page against Design Brain: path/to/index.html" It measures
+  first, then reports violations as entry, rule, source and fix, in severity
+  order, and names what the page does well.
+- "What does Design Brain say about line length?" It answers from the corpus
+  with entry numbers and named sources, and says so when the corpus is silent.
+- "Use the GoodLad house rules." Loads the overlay in `house/`. Copy
+  `house/goodlad.md` to `house/<yours>.md` to make your own.
 
 **Query it directly, no agent involved**
 
@@ -96,10 +143,14 @@ python3 skills/design-brain/scripts/query.py search line length
 python3 skills/design-brain/scripts/query.py entry 690
 python3 skills/design-brain/scripts/query.py numbers target size
 python3 skills/design-brain/scripts/query.py critique contrast hierarchy
-node skills/design-brain/scripts/measure.mjs path/to/page.html
+node skills/design-brain/scripts/measure.mjs path/to/page.html --shot ./shots
 ```
 
-`query.py` needs Python 3 and nothing else.
+## Updating
+
+Pull the repo. If you installed as a plugin, Claude Code picks the update up;
+if you copied the folder, copy it again. `skills/design-brain/scripts/refresh.sh`
+rebuilds both data indexes from the live site if the corpus changes.
 
 ## Read it as a site
 

@@ -325,7 +325,7 @@ function measureInPage() {
   guard('targets', () => {
     const cands = [...document.body.querySelectorAll('a[href], button, input:not([type=hidden]), select, textarea, [role=button], [role=link], summary, [tabindex="0"]')].filter(visible);
     const failures = [], under44 = [], inline = [];
-    const blockish = new Set(['P', 'LI', 'DD', 'TD', 'FIGCAPTION', 'BLOCKQUOTE']);
+    const blockish = new Set(['P', 'LI', 'DD', 'TD', 'FIGCAPTION', 'BLOCKQUOTE', 'SPAN', 'SMALL', 'EM', 'STRONG', 'DIV', 'FOOTER']);
     cands.forEach(el => {
       let box = el;
       if (/^(radio|checkbox)$/.test(el.type || '')) {
@@ -335,7 +335,10 @@ function measureInPage() {
       const r = box.getBoundingClientRect();
       const w = Math.round(r.width), h = Math.round(r.height);
       const label = snippet(el.getAttribute('aria-label') || el.textContent || el.getAttribute('placeholder') || el.tagName.toLowerCase());
-      const parentText = el.parentElement && blockish.has(el.parentElement.tagName) && el.parentElement.textContent.trim().length > el.textContent.trim().length + 20;
+      // Inline exception: a link sitting in a sentence, with real text either side of it.
+      const par = el.parentElement;
+      const parentText = par && blockish.has(par.tagName) && getComputedStyle(el).display === 'inline' &&
+        par.textContent.trim().length > el.textContent.trim().length + 20;
       if (el.tagName === 'A' && parentText) { inline.push({ selector: sel(el), label }); return; }
       if (w < 24 || h < 24) failures.push({ selector: sel(el), label, w, h });
       else if (w < 44 || h < 44) under44.push({ selector: sel(el), label, w, h });

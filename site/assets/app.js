@@ -287,11 +287,18 @@
             '<li><a href="#/s/29"><strong>' + esc(numbers.title) + '</strong><span>The published thresholds: contrast, measure, targets, timing.</span></a></li>' +
             '<li><a href="#/audit"><strong>Audit trail</strong><span>Everything cut, disputed or corrected, and why.</span></a></li>' +
           '</ul>' +
+          '<p class="hero__note">Open source. <a href="https://github.com/GoodLadTom/design-brain-v2">The corpus, the method and the measuring tool are on GitHub</a>, and install as a skill for Claude Code, Codex and Cursor in two commands.</p>' +
         '</header>' +
         '<div class="groups">' + groups + '</div>' +
         '<section class="anatomy">' +
           '<h2 class="group__title">What every entry holds</h2>' +
           '<p>A one-line rule, a live demo, what it says, why it matters, how to use it, a checkable example, the published numbers, the way it goes wrong, and the named source. Then two labels: whether the facts stood up when checked, and whether it belongs on a design list at all.</p>' +
+        '</section>' +
+        '<section class="install">' +
+          '<h2 class="group__title">Use it in Claude Code, Codex or Cursor</h2>' +
+          '<p>The skill reads the core before any design task, works the order of decisions, measures the rendered page, and hands over a decision log that cites entry numbers. In Claude Code:</p>' +
+          '<pre>/plugin marketplace add GoodLadTom/design-brain-v2\n/plugin install design-brain@goodlad-design-brain-v2</pre>' +
+          '<p>Codex and Cursor: clone the repository and run <code>./install.sh</code>. Everything else, including the measuring tool and the worked derivations, is in the <a href="https://github.com/GoodLadTom/design-brain-v2">README on GitHub</a>.</p>' +
         '</section>' +
         colophon() +
       '</div>'
@@ -595,7 +602,7 @@
     return '<footer class="colophon">' +
       '<span>GoodLad’s Design Brain v2 &middot; BrainGrapes internal reference</span>' +
       '<span>Set in Newsreader and IBM Plex Sans &middot; measure held near 66 characters &middot; 8px spacing scale</span>' +
-      '<span>Every source named. Contested claims labelled.</span>' +
+      '<span>Every source named. Contested claims labelled. <a href="https://github.com/GoodLadTom/design-brain-v2">Source and skill on GitHub</a>.</span>' +
     '</footer>';
   }
 
