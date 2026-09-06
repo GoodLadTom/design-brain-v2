@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "design-brain-v2.vercel.app" }],
+      "destination": "https://goodlads-design-brain.vercel.app/$1",
+      "permanent": true
+    }
+  ]
+}
